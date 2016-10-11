@@ -1,5 +1,4 @@
-﻿using MetroRadiance.UI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,36 +17,25 @@ using Libooru.Links;
 namespace Libooru.Views
 {
     /// <summary>
-    /// Interaction logic for MainPage.xaml
+    /// Interaction logic for MenuPage.xaml
     /// </summary>
-    public partial class MainPage : Page, ISwitchable
+    public partial class MenuPage : Page, ISwitchable
     {
-        public Core core { get; set; }
-
-        public MainPage()
+        public MenuPage()
         {
             InitializeComponent();
-            ThemeService.Current.ChangeTheme(Theme.Dark);
         }
 
-        private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void searchBar_GotFocus(object sender, RoutedEventArgs e)
-        {
-            this.searchBar.Text = "";
-        }
-
-        private void menuButton_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new MenuPage());
-        }
+        public Core core { get; set; }
 
         public void UtilizeState(Core core)
         {
             this.core = core;
+        }
+
+        private void menuButton_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new MainPage());
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Libooru.Views;
+﻿using Libooru.Links;
+using Libooru.Views;
 using MetroRadiance.UI;
 using System;
 using System.Collections.Generic;
@@ -25,9 +26,10 @@ namespace Libooru
         public MainWindow()
         {
             InitializeComponent();
+            var core = new Core();
             ThemeService.Current.ChangeTheme(Theme.Dark);
             Switcher.pageSwitcher = this;
-            Switcher.Switch(new Views.MainPage());
+            Switcher.Switch(new Views.MainPage(), core);
         }
 
         public void Navigate(UserControl nextPage)
@@ -35,13 +37,13 @@ namespace Libooru
             this.Content = nextPage;
         }
 
-        public void Navigate(UserControl nextPage, object state)
+        public void Navigate(UserControl nextPage, Core core)
         {
             this.Content = nextPage;
             ISwitchable s = nextPage as ISwitchable;
 
             if (s != null)
-                s.UtilizeState(state);
+                s.UtilizeState(core);
             else
                 throw new ArgumentException("NextPage is not ISwitchable! "
                   + nextPage.Name.ToString());
@@ -51,13 +53,13 @@ namespace Libooru
             this.Content = nextPage;
         }
 
-        public void Navigate(Page nextPage, object state)
+        public void Navigate(Page nextPage, Core core)
         {
             this.Content = nextPage;
             ISwitchable s = nextPage as ISwitchable;
 
             if (s != null)
-                s.UtilizeState(state);
+                s.UtilizeState(core);
             else
                 throw new ArgumentException("NextPage is not ISwitchable! "
                   + nextPage.Name.ToString());

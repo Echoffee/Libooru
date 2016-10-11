@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Libooru.Links;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Libooru
 {
     public interface ISwitchable
     {
-        void UtilizeState(object state);
+        void UtilizeState(Core core);
     }
 }

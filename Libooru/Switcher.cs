@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Libooru.Views;
+using Libooru.Links;
 
 namespace Libooru
 {
@@ -17,14 +18,19 @@ namespace Libooru
             pageSwitcher.Navigate(newPage);
         }
 
-        public static void Switch(UserControl newPage, object state)
+        public static void Switch(UserControl newPage, Core core)
         {
-            pageSwitcher.Navigate(newPage, state);
+            pageSwitcher.Navigate(newPage, core);
         }
 
-        internal static void Switch(Page newPage)
+        public static void Switch(Page newPage)
         {
             pageSwitcher.Navigate(newPage);
+        }
+
+        public static void Switch(Page newPage, Core core)
+        {
+            pageSwitcher.Navigate(newPage, core);
         }
     }
 }

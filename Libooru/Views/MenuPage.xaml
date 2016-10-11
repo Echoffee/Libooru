@@ -1,12 +1,12 @@
-﻿<Page x:Class="Libooru.Views.MainPage"
+﻿<Page x:Class="Libooru.Views.MenuPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Libooru.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-      Title="MainPage">
+      d:DesignHeight="720" d:DesignWidth="1270"
+      Title="MenuPage">
     <Page.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -64,14 +64,16 @@
             </Setter>
         </Style>
     </Page.Resources>
-
-    <Grid Background="#FF2D2D30" Margin="0,0,-0,-0">
-        <TextBox x:Name="searchBar" Height="20" Margin="10,10,10,0" TextWrapping="Wrap" Text="Search..." VerticalAlignment="Top" Background="#FF1B1B1C" Foreground="White" GotFocus="searchBar_GotFocus"/>
-        <Button x:Name="menuButton" Content="Menu" Margin="5,0,0,30" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75" ForceCursor="True" Click="menuButton_Click"/>
+    <Grid Background="#FF2D2D30">
+        <Button x:Name="menuButton" Content="Back" Margin="5,0,0,30" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75" ForceCursor="True" Click="menuButton_Click"/>
         <Grid Background="#FF007ACC" Height="25" VerticalAlignment="Bottom">
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="5,5,0,5" TextWrapping="Wrap" Text="Status..." FontSize="11" Foreground="White" Width="155"/>
             <TextBlock x:Name="textBlock_Copy" Margin="0,5,5,5" TextWrapping="Wrap" Text="Infos..." FontSize="11" Foreground="White" TextAlignment="Right" HorizontalAlignment="Right" Width="155"/>
         </Grid>
+        <Button x:Name="menuButton_Copy" Content="General" Margin="5,10,0,0" Foreground="White" Background="#FF1B1B1C" HorizontalAlignment="Left" Width="180" ForceCursor="True" Height="20" VerticalAlignment="Top"/>
+        <Button x:Name="menuButton_Copy1" Content="Directories" Margin="5,35,0,0" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" ForceCursor="True"/>
+        <Button x:Name="menuButton_Copy2" Content="Tags" Margin="5,60,0,0" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" ForceCursor="True"/>
+        <Button x:Name="menuButton_Copy3" Content="External Tools" Margin="5,85,0,0" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" ForceCursor="True"/>
 
     </Grid>
 </Page>
