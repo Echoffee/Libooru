@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetroRadiance.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +14,28 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Libooru
+namespace Libooru.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainPage : Page 
     {
-        public MainWindow()
+        public MainPage()
         {
             InitializeComponent();
+            ThemeService.Current.ChangeTheme(Theme.Dark);
         }
+
+        private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void searchBar_GotFocus(object sender, RoutedEventArgs e)
+        {
+            this.searchBar.Text = "";
+        }
+
     }
 }
