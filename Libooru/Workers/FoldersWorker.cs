@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Libooru.Workers
 {
@@ -18,7 +19,7 @@ namespace Libooru.Workers
 
         public FoldersWorker()
         {
-            this.pictureFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            
         }
     }
 }
