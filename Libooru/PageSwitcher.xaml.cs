@@ -23,13 +23,35 @@ namespace Libooru
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private Views.MainPage mainPage { get; set; }
+
+        private Views.MenuPage menuPage { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
-            var core = new Core();
+            var core = new Core(this);
             ThemeService.Current.ChangeTheme(Theme.Dark);
             Switcher.pageSwitcher = this;
-            Switcher.Switch(new Views.MainPage(), core);
+            mainPage = new Views.MainPage();
+            menuPage = new Views.MenuPage();
+            mainPage.core = core;
+            menuPage.core = core;
+            Switcher.Switch(mainPage);
+            mainPage.UpdateView();
+        }
+
+        public void GoToMain()
+        {
+            Switcher.Switch(mainPage);
+            mainPage.UpdateView();
+        }
+
+        public void GoToMenu()
+        {
+            Switcher.Switch(menuPage);
+            menuPage.UpdateView();
         }
 
         public void Navigate(UserControl nextPage)
@@ -48,6 +70,7 @@ namespace Libooru
                 throw new ArgumentException("NextPage is not ISwitchable! "
                   + nextPage.Name.ToString());
         }
+
         public void Navigate(Page nextPage)
         {
             this.Content = nextPage;
@@ -64,5 +87,6 @@ namespace Libooru
                 throw new ArgumentException("NextPage is not ISwitchable! "
                   + nextPage.Name.ToString());
         }
+
     }
 }

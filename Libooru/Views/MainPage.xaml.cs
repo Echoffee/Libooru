@@ -30,9 +30,14 @@ namespace Libooru.Views
             ThemeService.Current.ChangeTheme(Theme.Dark);
         }
 
-        private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
+        public void UpdateView()
         {
-
+            this.textInfos.Text = core.foldersWorker.pictureNumber + " picture"
+                + (core.foldersWorker.pictureNumber > 1 ? "s" : "")
+                + (core.foldersWorker.newPictureNumber > 0 ? " ("
+                + core.foldersWorker.newPictureNumber + " new"
+                + (core.foldersWorker.newPictureNumber > 1 ? "s" : "")
+                + ")" : "");
         }
 
         private void searchBar_GotFocus(object sender, RoutedEventArgs e)
@@ -40,9 +45,15 @@ namespace Libooru.Views
             this.searchBar.Text = "";
         }
 
+        private void searchBar_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (this.searchBar.Text.Equals(""))
+                this.searchBar.Text = "";
+        }
+
         private void menuButton_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new MenuPage());
+            core.switcher.GoToMenu();
         }
 
         public void UtilizeState(Core core)

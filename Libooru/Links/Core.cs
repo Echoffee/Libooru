@@ -9,19 +9,21 @@ namespace Libooru.Links
 {
     public class Core
     {
+        public MainWindow switcher { get; set; }
 
         public Config config { get; set; }
 
         public FoldersWorker foldersWorker { get; set; }
 
-        public Core()
+        public Core(MainWindow switcher)
         {
-            this.foldersWorker = new FoldersWorker();
+            this.switcher = switcher;
             var documentsPaths = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             var path = documentsPaths + @"/Libooru";
             this.config = new Config();
             config.AppFolderPath = path;
             config.GetConfig();
+            foldersWorker = new FoldersWorker(this);
         }
     }
 }

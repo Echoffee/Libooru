@@ -4,22 +4,60 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Libooru.Links;
 
 namespace Libooru.Workers
 {
     public class FoldersWorker
     {
-        public string pictureFolderPath { get; set; }
-
-        public string newPictureFolderPath { get; set; }
+        public Core core { get; set; }
 
         public long pictureNumber { get; set; }
 
         public long newPictureNumber { get; set; }
 
-        public FoldersWorker()
+        private string[] pictureFileExtensions = { ".jpg", ".jpeg", ".png" };
+
+        public FoldersWorker(Core core)
         {
-            
+            this.core = core;
+            scanForPictures();
+        }
+
+        public void scanForPictures()
+        {
+            newPictureNumber = getPictureFilesNumWithoutDiving(core.config.Data.newPictureFolderPath);
+            pictureNumber = getPictureFilesNum(core.config.Data.pictureFolderPath);
+            if (core.config.Data.newPictureFolderPath.Equals(core.config.Data.pictureFolderPath))
+                pictureNumber -= newPictureNumber;
+        }
+
+        public long getPictureFilesNum(string path)
+        {
+            var result = 0L;
+            var dInfo = new DirectoryInfo(path);
+            foreach (var d in dInfo.GetDirectories())
+            {
+                result += getPictureFilesNum(d.FullName);
+            }
+            foreach (var f in dInfo.GetFiles())
+            {
+                if (pictureFileExtensions.Contains(f.Extension))
+                    result++;
+            }
+            return result;
+        }
+
+        public long getPictureFilesNumWithoutDiving(string path)
+        {
+            var result = 0L;
+            var dInfo = new DirectoryInfo(path);
+            foreach (var f in dInfo.GetFiles())
+            {
+                if (pictureFileExtensions.Contains(f.Extension))
+                    result++;
+            }
+            return result;
         }
     }
 }

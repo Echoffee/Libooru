@@ -35,7 +35,11 @@ namespace Libooru.Views
 
         private void menuButton_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new MainPage());
+            core.switcher.GoToMain();
+        }
+
+        internal void UpdateView()
+        {
         }
     }
 }
