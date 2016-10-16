@@ -11,13 +11,20 @@ namespace Libooru.Links
 {
     public class Config
     {
+        public Core core { get; set; }
+
         public string AppFolderPath { get; set; }
 
         public ConfigDataSet Data { get; set; }
 
+        public Config(Core core)
+        {
+            this.core = core;
+        }
+
         public void GetConfig()
         {
-            
+
             var path = AppFolderPath;
             if (!Directory.Exists(path))
             {
@@ -40,6 +47,29 @@ namespace Libooru.Links
                 s = r.ReadToEnd();
             }
             this.Data = JsonConvert.DeserializeObject<ConfigDataSet>(s);
+        }
+
+        public void ApplyChanges()
+        {
+            var path = AppFolderPath;
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            var filePath = path + @"/config.json";
+            if (!File.Exists(filePath))
+            {
+                var nf = File.Create(filePath);
+            }
+            var f = File.OpenWrite(filePath);
+            var ns = JsonConvert.SerializeObject(Data);
+            using (StreamWriter w = new StreamWriter(f))
+            {
+                w.Write(ns);
+            }
+
+            GetConfig();
+            core.Update();
         }
     }
 

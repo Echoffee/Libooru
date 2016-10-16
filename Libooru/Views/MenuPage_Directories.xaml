@@ -1,12 +1,12 @@
-﻿<Page x:Class="Libooru.Views.MenuPage"
+﻿<Page x:Class="Libooru.Views.MenuPage_Directories"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Libooru.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="720" d:DesignWidth="1270"
-      Title="MenuPage">
+      d:DesignHeight="730" d:DesignWidth="995"
+      Title="MenuPage_Directories">
     <Page.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -65,16 +65,24 @@
         </Style>
     </Page.Resources>
     <Grid Background="#FF2D2D30">
-        <Button x:Name="menuButton" Content="Back" Margin="5,0,0,30" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75" ForceCursor="True" Click="menuButton_Click" IsCancel="True"/>
+        <Button x:Name="menuButton" Content="Back" Margin="5,0,0,30" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75" ForceCursor="True" Click="goToMain" IsCancel="True"/>
         <Grid Background="#FF007ACC" Height="25" VerticalAlignment="Bottom">
             <TextBlock x:Name="textStatus" HorizontalAlignment="Left" Margin="5,5,0,5" TextWrapping="Wrap" Text="Status..." FontSize="11" Foreground="White" Width="155"/>
             <TextBlock x:Name="textInfos" Margin="0,5,5,5" TextWrapping="Wrap" Text="Infos..." FontSize="11" Foreground="White" TextAlignment="Right" HorizontalAlignment="Right" Width="155"/>
         </Grid>
-        <Button x:Name="buttonGeneral" Content="General" Margin="5,10,0,0" Foreground="White" Background="#FF1B1B1C" HorizontalAlignment="Left" Width="180" ForceCursor="True" Height="20" VerticalAlignment="Top" IsEnabled="False"/>
-        <Button x:Name="buttonDirectories" Content="Directories" Margin="5,35,0,0" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" ForceCursor="True" Click="goToDirectories"/>
+        <Button x:Name="buttonGeneral" Content="General" Margin="5,10,0,0" Foreground="White" Background="#FF1B1B1C" HorizontalAlignment="Left" Width="180" ForceCursor="True" Height="20" VerticalAlignment="Top" Click="goToMenu"/>
+        <Button x:Name="buttonDirectories" Content="Directories" Margin="5,35,0,0" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" ForceCursor="True" IsEnabled="False"/>
         <Button x:Name="buttonTags" Content="Tags" Margin="5,60,0,0" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" ForceCursor="True"/>
         <Button x:Name="buttonExternalTools" Content="External Tools" Margin="5,85,0,0" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" ForceCursor="True"/>
-        <Grid Margin="190,10,10,55"/>
+        <Grid Margin="190,10,10,55">
+            <Label x:Name="label1" Content="Picture folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White"/>
+            <TextBox x:Name="textboxPictureFolder" Height="20" Margin="130,14,45,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Background="#FF1B1B1C" Foreground="White" Focusable="False"/>
+            <Button x:Name="browseFolderOpt1" Content="..." Margin="0,14,10,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" Click="ChooseDirectoryOpt1"/>
+            <Label x:Name="label2" Content="New pictures folder" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Foreground="White"/>
+            <TextBox x:Name="textboxNewPictureFolder" Height="20" Margin="130,50,45,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Background="#FF1B1B1C" Foreground="White" Focusable="False"/>
+            <Button x:Name="browseFolderOpt2" Content="..." Margin="0,50,10,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" Click="ChooseDirectoryOpt2"/>
+        </Grid>
+        <Button x:Name="menuApply" Content="Apply" Margin="0,0,10,30" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Bottom" ForceCursor="True" Click="ApplyChanges" HorizontalAlignment="Right" Width="75"/>
 
     </Grid>
 </Page>

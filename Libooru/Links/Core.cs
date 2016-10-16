@@ -20,10 +20,16 @@ namespace Libooru.Links
             this.switcher = switcher;
             var documentsPaths = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             var path = documentsPaths + @"/Libooru";
-            this.config = new Config();
+            this.config = new Config(this);
             config.AppFolderPath = path;
             config.GetConfig();
             foldersWorker = new FoldersWorker(this);
+        }
+
+        public void Update()
+        {
+            foldersWorker.scanForPictures();
+            switcher.UpdateAllViews();
         }
     }
 }

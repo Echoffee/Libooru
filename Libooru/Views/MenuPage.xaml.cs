@@ -38,8 +38,23 @@ namespace Libooru.Views
             core.switcher.GoToMain();
         }
 
-        internal void UpdateView()
+        private void goToDirectories(object sender, RoutedEventArgs e)
         {
+            core.switcher.GoToMenu_Directories();
+        }
+
+        public void UpdateView()
+        {
+            CountFiles();
+        }
+
+        public void CountFiles()
+        {
+            this.textInfos.Text = core.foldersWorker.pictureNumber + " picture"
+                            + (core.foldersWorker.pictureNumber > 1 ? "s" : "")
+                            + (core.foldersWorker.newPictureNumber > 0 ? " + "
+                            + core.foldersWorker.newPictureNumber + " new" : "");
+
         }
     }
 }

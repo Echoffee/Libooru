@@ -28,6 +28,8 @@ namespace Libooru
 
         private Views.MenuPage menuPage { get; set; }
 
+        private Views.MenuPage_Directories menuPage_Directories { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -36,10 +38,19 @@ namespace Libooru
             Switcher.pageSwitcher = this;
             mainPage = new Views.MainPage();
             menuPage = new Views.MenuPage();
+            menuPage_Directories = new MenuPage_Directories();
             mainPage.core = core;
             menuPage.core = core;
+            menuPage_Directories.core = core;
             Switcher.Switch(mainPage);
             mainPage.UpdateView();
+        }
+
+        internal void UpdateAllViews()
+        {
+            mainPage.UpdateView();
+            menuPage.UpdateView();
+            menuPage_Directories.UpdateView();
         }
 
         public void GoToMain()
@@ -52,6 +63,13 @@ namespace Libooru
         {
             Switcher.Switch(menuPage);
             menuPage.UpdateView();
+        }
+
+        public void GoToMenu_Directories()
+        {
+            Switcher.Switch(menuPage_Directories);
+            menuPage_Directories.UpdateView();
+
         }
 
         public void Navigate(UserControl nextPage)

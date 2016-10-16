@@ -32,12 +32,15 @@ namespace Libooru.Views
 
         public void UpdateView()
         {
+            CountFiles();
+        }
+
+        public void CountFiles()
+        {
             this.textInfos.Text = core.foldersWorker.pictureNumber + " picture"
-                + (core.foldersWorker.pictureNumber > 1 ? "s" : "")
-                + (core.foldersWorker.newPictureNumber > 0 ? " ("
-                + core.foldersWorker.newPictureNumber + " new"
-                + (core.foldersWorker.newPictureNumber > 1 ? "s" : "")
-                + ")" : "");
+                            + (core.foldersWorker.pictureNumber > 1 ? "s" : "")
+                            + (core.foldersWorker.newPictureNumber > 0 ? " + "
+                            + core.foldersWorker.newPictureNumber + " new" : "");
         }
 
         private void searchBar_GotFocus(object sender, RoutedEventArgs e)
