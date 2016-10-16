@@ -21,11 +21,11 @@ namespace Libooru.Workers
         public FoldersWorker(Core core)
         {
             this.core = core;
-            scanForPictures();
         }
 
         public void scanForPictures()
         {
+            core.SetStatus("Scanning folders...");
             if (core.config.Data.newPictureFolderPath.Equals(core.config.Data.pictureFolderPath))
                 newPictureNumber = getPictureFilesNumWithoutDiving(core.config.Data.newPictureFolderPath);
             else
@@ -33,6 +33,7 @@ namespace Libooru.Workers
             pictureNumber = getPictureFilesNum(core.config.Data.pictureFolderPath);
             if (core.config.Data.newPictureFolderPath.Equals(core.config.Data.pictureFolderPath))
                 pictureNumber -= newPictureNumber;
+            core.SetStatus("");
         }
 
         public long getPictureFilesNum(string path)

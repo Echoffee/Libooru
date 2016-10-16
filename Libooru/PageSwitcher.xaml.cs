@@ -42,8 +42,16 @@ namespace Libooru
             mainPage.core = core;
             menuPage.core = core;
             menuPage_Directories.core = core;
+            core.Initialize();
             Switcher.Switch(mainPage);
             mainPage.UpdateView();
+        }
+
+        internal void SetAllViewsStatus(string status)
+        {
+            mainPage.textStatus.Text = status;
+            menuPage.textStatus.Text = status;
+            menuPage_Directories.textStatus.Text = status;
         }
 
         internal void UpdateAllViews()

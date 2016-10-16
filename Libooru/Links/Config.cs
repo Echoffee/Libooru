@@ -61,7 +61,7 @@ namespace Libooru.Links
             {
                 var nf = File.Create(filePath);
             }
-            var f = File.OpenWrite(filePath);
+            var f = File.Open(filePath, FileMode.Create);
             var ns = JsonConvert.SerializeObject(Data);
             using (StreamWriter w = new StreamWriter(f))
             {

@@ -47,10 +47,13 @@ namespace Libooru.Views
 
         public void ApplyChanges(object sender, RoutedEventArgs e)
         {
+            core.SetStatus("Applying changes...");
             core.config.Data.pictureFolderPath = textboxPictureFolder.Text;
             core.config.Data.newPictureFolderPath = textboxNewPictureFolder.Text;
             core.config.ApplyChanges();
+            core.SetStatus("Done.");
             UpdateView();
+            core.SetStatus("");
         }
 
         public void ChooseDirectoryOpt1(object sender, RoutedEventArgs e)
@@ -76,7 +79,7 @@ namespace Libooru.Views
                     dialog.DefaultDirectory = core.config.Data.pictureFolderPath;
                     break;
                 case 2:
-                    title = "new pictures folder";
+                    title = "New pictures folder";
                     dialog.DefaultDirectory = core.config.Data.newPictureFolderPath;
                     break;
             }

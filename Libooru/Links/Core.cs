@@ -15,6 +15,8 @@ namespace Libooru.Links
 
         public FoldersWorker foldersWorker { get; set; }
 
+        public string status { get; set; }
+
         public Core(MainWindow switcher)
         {
             this.switcher = switcher;
@@ -30,6 +32,16 @@ namespace Libooru.Links
         {
             foldersWorker.scanForPictures();
             switcher.UpdateAllViews();
+        }
+
+        public void SetStatus(string status)
+        {
+            switcher.SetAllViewsStatus(status);
+        }
+
+        internal void Initialize()
+        {
+            Update();
         }
     }
 }
