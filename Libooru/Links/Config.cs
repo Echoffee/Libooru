@@ -27,6 +27,36 @@ namespace Libooru.Links
         {
 
             var path = AppFolderPath;
+            var filePath = path + @"/config.json";
+
+            var f = File.OpenRead(filePath);
+            string s;
+            using (StreamReader r = new StreamReader(f))
+            {
+                s = r.ReadToEnd();
+            }
+            this.Data = JsonConvert.DeserializeObject<ConfigDataSet>(s);
+        }
+
+        public void ApplyChanges()
+        {
+            var path = AppFolderPath;
+            var filePath = path + @"/config.json";
+
+            var f = File.Open(filePath, FileMode.Create);
+            var ns = JsonConvert.SerializeObject(Data, Formatting.Indented);
+            using (StreamWriter w = new StreamWriter(f))
+            {
+                w.Write(ns);
+            }
+
+            GetConfig();
+            core.Update();
+        }
+
+        public void SetLibooruEnv()
+        {
+            var path = AppFolderPath;
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -41,36 +71,12 @@ namespace Libooru.Links
                     w.Write(ns);
                 }
             }
-            var f = File.OpenRead(filePath);
-            string s;
-            using (StreamReader r = new StreamReader(f))
-            {
-                s = r.ReadToEnd();
-            }
-            this.Data = JsonConvert.DeserializeObject<ConfigDataSet>(s);
-        }
 
-        public void ApplyChanges()
-        {
-            var path = AppFolderPath;
+            var tagFolderPath = path + @"/tags";
             if (!Directory.Exists(path))
             {
-                Directory.CreateDirectory(path);
+                Directory.CreateDirectory(tagFolderPath);
             }
-            var filePath = path + @"/config.json";
-            if (!File.Exists(filePath))
-            {
-                var nf = File.Create(filePath);
-            }
-            var f = File.Open(filePath, FileMode.Create);
-            var ns = JsonConvert.SerializeObject(Data, Formatting.Indented);
-            using (StreamWriter w = new StreamWriter(f))
-            {
-                w.Write(ns);
-            }
-
-            GetConfig();
-            core.Update();
         }
     }
 

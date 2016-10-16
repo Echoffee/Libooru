@@ -74,7 +74,10 @@
         <Button x:Name="buttonDirectories" Content="Folders" Margin="5,35,0,0" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" ForceCursor="True" Click="goToDirectories"/>
         <Button x:Name="buttonTags" Content="Tags" Margin="5,60,0,0" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" ForceCursor="True"/>
         <Button x:Name="buttonExternalTools" Content="External Tools" Margin="5,85,0,0" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" ForceCursor="True"/>
-        <Grid Margin="190,10,10,55"/>
+        <Grid Margin="190,10,10,55">
+            <TextBlock x:Name="textPictures" Margin="0,10,10,0" TextWrapping="Wrap" Text="12 549 pictures" VerticalAlignment="Top" Foreground="White" FontSize="22" TextAlignment="Right" FontFamily="Segoe UI Light" HorizontalAlignment="Right" Width="137"/>
+            <TextBlock x:Name="textTags" Margin="0,44,10,0" TextWrapping="Wrap" Text="1 801 tags" VerticalAlignment="Top" Foreground="White" FontSize="22" TextAlignment="Right" FontFamily="Segoe UI Light" HorizontalAlignment="Right" Width="137"/>
+        </Grid>
 
     </Grid>
 </Page>

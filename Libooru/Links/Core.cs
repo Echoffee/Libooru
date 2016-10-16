@@ -41,6 +41,7 @@ namespace Libooru.Links
 
         internal void Initialize()
         {
+            config.SetLibooruEnv();
             Update();
         }
     }

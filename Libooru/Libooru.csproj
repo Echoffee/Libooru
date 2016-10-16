@@ -102,6 +102,9 @@
       <DependentUpon>MenuPage_Directories.xaml</DependentUpon>
     </Compile>
     <Compile Include="Workers\FoldersWorker.cs" />
+    <Compile Include="Workers\TagsItems\SearchResults.cs" />
+    <Compile Include="Workers\TagsItems\TagFile.cs" />
+    <Compile Include="Workers\TagsWorker.cs" />
     <Page Include="PageSwitcher.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
