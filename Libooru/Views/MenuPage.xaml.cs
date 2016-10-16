@@ -46,6 +46,7 @@ namespace Libooru.Views
         public void UpdateView()
         {
             CountFiles();
+            CountTags();
         }
 
         public void CountFiles()
@@ -55,6 +56,15 @@ namespace Libooru.Views
                             + (core.foldersWorker.newPictureNumber > 0 ? " + "
                             + core.foldersWorker.newPictureNumber + " new" : "");
 
+            this.textPictures.Text = core.foldersWorker.pictureNumber + " picture"
+                            + (core.foldersWorker.pictureNumber > 1 ? "s" : "");
+
+        }
+
+        public void CountTags()
+        {
+            this.textTags.Text = core.tagsWorker.tagNumber + " tag"
+                            + (core.tagsWorker.tagNumber > 1 ? "s" : "");
         }
     }
 }

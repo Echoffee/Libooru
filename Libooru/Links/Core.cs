@@ -15,6 +15,10 @@ namespace Libooru.Links
 
         public FoldersWorker foldersWorker { get; set; }
 
+        public TagsWorker tagsWorker { get; set; }
+
+        public TaggerWorker taggerWorker { get; set; }
+
         public string status { get; set; }
 
         public Core(MainWindow switcher)
@@ -22,10 +26,17 @@ namespace Libooru.Links
             this.switcher = switcher;
             var documentsPaths = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             var path = documentsPaths + @"/Libooru";
+
             this.config = new Config(this);
             config.AppFolderPath = path;
             config.GetConfig();
+
             foldersWorker = new FoldersWorker(this);
+
+            tagsWorker = new TagsWorker(this);
+            tagsWorker.TagsFolderPath = path + @"/tags";
+
+            taggerWorker = new TaggerWorker(this);
         }
 
         public void Update()
@@ -43,6 +54,7 @@ namespace Libooru.Links
         {
             config.SetLibooruEnv();
             Update();
+            taggerWorker.SearchForMd5(@"C:\Users\echo\Pictures\Camera Roll\Persona\52683173_p0.png");
         }
     }
 }
