@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.IO;
+using Libooru.Links.ConfigData;
 
 namespace Libooru.Links
 {
@@ -34,7 +35,7 @@ namespace Libooru.Links
             if (!File.Exists(filePath))
             {
                 var nf = File.Create(filePath);
-                var ns = JsonConvert.SerializeObject(new ConfigDataSet());
+                var ns = JsonConvert.SerializeObject(new ConfigDataSet(), Formatting.Indented);
                 using (StreamWriter w = new StreamWriter(nf))
                 {
                     w.Write(ns);
@@ -62,7 +63,7 @@ namespace Libooru.Links
                 var nf = File.Create(filePath);
             }
             var f = File.Open(filePath, FileMode.Create);
-            var ns = JsonConvert.SerializeObject(Data);
+            var ns = JsonConvert.SerializeObject(Data, Formatting.Indented);
             using (StreamWriter w = new StreamWriter(f))
             {
                 w.Write(ns);
@@ -73,22 +74,5 @@ namespace Libooru.Links
         }
     }
 
-    [DataContract]
-    public class ConfigDataSet
-    {
-        [DataMember]
-        public string pictureFolderPath { get; set; }
-        [DataMember]
-        public string newPictureFolderPath { get; set; }
-        [DataMember]
-        public int safetyLevel { get; set; }
-
-        public ConfigDataSet()
-        {
-            this.pictureFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-            this.newPictureFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-            this.safetyLevel = 0;
-
-        }
-    }
+    
 }

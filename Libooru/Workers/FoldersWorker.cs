@@ -26,12 +26,12 @@ namespace Libooru.Workers
         public void scanForPictures()
         {
             core.SetStatus("Scanning folders...");
-            if (core.config.Data.newPictureFolderPath.Equals(core.config.Data.pictureFolderPath))
-                newPictureNumber = getPictureFilesNumWithoutDiving(core.config.Data.newPictureFolderPath);
+            if (core.config.Data.Folders.NewPictureFolderPath.Equals(core.config.Data.Folders.PictureFolderPath))
+                newPictureNumber = getPictureFilesNumWithoutDiving(core.config.Data.Folders.NewPictureFolderPath);
             else
-                newPictureNumber = getPictureFilesNum(core.config.Data.newPictureFolderPath);
-            pictureNumber = getPictureFilesNum(core.config.Data.pictureFolderPath);
-            if (core.config.Data.newPictureFolderPath.Equals(core.config.Data.pictureFolderPath))
+                newPictureNumber = getPictureFilesNum(core.config.Data.Folders.NewPictureFolderPath);
+            pictureNumber = getPictureFilesNum(core.config.Data.Folders.PictureFolderPath);
+            if (core.config.Data.Folders.NewPictureFolderPath.Equals(core.config.Data.Folders.PictureFolderPath))
                 pictureNumber -= newPictureNumber;
             core.SetStatus("");
         }

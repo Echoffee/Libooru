@@ -84,6 +84,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Links\Config.cs" />
+    <Compile Include="Links\ConfigData\ConfigDataSet.cs" />
+    <Compile Include="Links\ConfigData\Externals.cs" />
+    <Compile Include="Links\ConfigData\ExternalsData\Danbooru.cs" />
+    <Compile Include="Links\ConfigData\Folders.cs" />
+    <Compile Include="Links\ConfigData\General.cs" />
+    <Compile Include="Links\ConfigData\Tags.cs" />
     <Compile Include="Links\Core.cs" />
     <Compile Include="Switcher.cs" />
     <Compile Include="Views\MainPage.xaml.cs">

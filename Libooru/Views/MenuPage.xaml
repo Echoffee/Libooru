@@ -71,7 +71,7 @@
             <TextBlock x:Name="textInfos" Margin="0,5,5,5" TextWrapping="Wrap" Text="Infos..." FontSize="11" Foreground="White" TextAlignment="Right" HorizontalAlignment="Right" Width="155"/>
         </Grid>
         <Button x:Name="buttonGeneral" Content="General" Margin="5,10,0,0" Foreground="White" Background="#FF1B1B1C" HorizontalAlignment="Left" Width="180" ForceCursor="True" Height="20" VerticalAlignment="Top" IsEnabled="False"/>
-        <Button x:Name="buttonDirectories" Content="Directories" Margin="5,35,0,0" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" ForceCursor="True" Click="goToDirectories"/>
+        <Button x:Name="buttonDirectories" Content="Folders" Margin="5,35,0,0" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" ForceCursor="True" Click="goToDirectories"/>
         <Button x:Name="buttonTags" Content="Tags" Margin="5,60,0,0" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" ForceCursor="True"/>
         <Button x:Name="buttonExternalTools" Content="External Tools" Margin="5,85,0,0" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" ForceCursor="True"/>
         <Grid Margin="190,10,10,55"/>
