@@ -114,6 +114,9 @@
     <Compile Include="Views\MenuPage_Directories.xaml.cs">
       <DependentUpon>MenuPage_Directories.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MenuPage_Externals.xaml.cs">
+      <DependentUpon>MenuPage_Externals.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Workers\FoldersWorker.cs" />
     <Compile Include="Workers\TaggerWorker.cs" />
     <Compile Include="Workers\TagsItems\SearchResults.cs" />
@@ -141,6 +144,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MenuPage_Directories.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MenuPage_Externals.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Libooru.Links;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,46 +13,63 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Libooru.Links;
 
 namespace Libooru.Views
 {
     /// <summary>
-    /// Interaction logic for MenuPage.xaml
+    /// Interaction logic for MenuPage_Externals.xaml
     /// </summary>
-    public partial class MenuPage : Page, ISwitchable
+    public partial class MenuPage_Externals : Page
     {
-        public MenuPage()
+        public Core core { get; set; }
+
+        public MenuPage_Externals()
         {
             InitializeComponent();
         }
-
-        public Core core { get; set; }
 
         public void UtilizeState(Core core)
         {
             this.core = core;
         }
 
-        private void menuButton_Click(object sender, RoutedEventArgs e)
+        private void goToMenu(object sender, RoutedEventArgs e)
+        {
+            core.switcher.GoToMenu();
+        }
+
+        private void goToMain(object sender, RoutedEventArgs e)
         {
             core.switcher.GoToMain();
         }
 
-        private void goToDirectories(object sender, RoutedEventArgs e)
+        private void goToFolders(object sender, RoutedEventArgs e)
         {
             core.switcher.GoToMenu_Directories();
         }
 
-        private void goToExternals(object sender, RoutedEventArgs e)
+        public void ApplyChanges(object sender, RoutedEventArgs e)
         {
-            core.switcher.GoToMenu_Externals();
+            core.SetStatus("Applying changes...");
+            core.config.Data.Externals.Danbooru.Login = textBoxLogin.Text;
+            core.config.Data.Externals.Danbooru.ApiKey= textBoxApiKey.Text;
+            core.config.ApplyChanges();
+            core.SetStatus("Done.");
+            UpdateView();
+            core.SetStatus("");
         }
 
         public void UpdateView()
         {
             CountFiles();
-            CountTags();
+            SetFields();
+        }
+
+        public void SetFields()
+        {
+            //TODO: Fix for more tools
+            textBoxLogin.Text = core.config.Data.Externals.Danbooru.Login;
+            textBoxApiKey.Text = core.config.Data.Externals.Danbooru.ApiKey;
         }
 
         public void CountFiles()
@@ -61,15 +79,6 @@ namespace Libooru.Views
                             + (core.foldersWorker.newPictureNumber > 0 ? " + "
                             + core.foldersWorker.newPictureNumber + " new" : "");
 
-            this.textPictures.Text = core.foldersWorker.pictureNumber + " picture"
-                            + (core.foldersWorker.pictureNumber > 1 ? "s" : "");
-
-        }
-
-        public void CountTags()
-        {
-            this.textTags.Text = core.tagsWorker.tagNumber + " tag"
-                            + (core.tagsWorker.tagNumber > 1 ? "s" : "");
         }
     }
 }

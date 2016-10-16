@@ -30,6 +30,8 @@ namespace Libooru
 
         private Views.MenuPage_Directories menuPage_Directories { get; set; }
 
+        private Views.MenuPage_Externals menuPage_Externals { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -39,19 +41,25 @@ namespace Libooru
             mainPage = new Views.MainPage();
             menuPage = new Views.MenuPage();
             menuPage_Directories = new MenuPage_Directories();
+            menuPage_Externals = new MenuPage_Externals();
+
             mainPage.core = core;
             menuPage.core = core;
             menuPage_Directories.core = core;
+            menuPage_Externals.core = core;
+
             core.Initialize();
             Switcher.Switch(mainPage);
             mainPage.UpdateView();
         }
+
 
         internal void SetAllViewsStatus(string status)
         {
             mainPage.textStatus.Text = status;
             menuPage.textStatus.Text = status;
             menuPage_Directories.textStatus.Text = status;
+            menuPage_Externals.textStatus.Text = status;
         }
 
         internal void UpdateAllViews()
@@ -59,6 +67,13 @@ namespace Libooru
             mainPage.UpdateView();
             menuPage.UpdateView();
             menuPage_Directories.UpdateView();
+            menuPage_Externals.UpdateView();
+        }
+
+        internal void GoToMenu_Externals()
+        {
+            Switcher.Switch(menuPage_Externals);
+            menuPage_Externals.UpdateView();
         }
 
         public void GoToMain()

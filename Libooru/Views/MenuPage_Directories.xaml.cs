@@ -45,6 +45,11 @@ namespace Libooru.Views
             core.switcher.GoToMain();
         }
 
+        private void goToExternals(object sender, RoutedEventArgs e)
+        {
+            core.switcher.GoToMenu_Externals();
+        }
+
         public void ApplyChanges(object sender, RoutedEventArgs e)
         {
             core.SetStatus("Applying changes...");
