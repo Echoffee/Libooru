@@ -54,7 +54,7 @@ namespace Libooru.Links
         {
             config.SetLibooruEnv();
             Update();
-            //taggerWorker.SearchForMd5(@"C:\Users\echo\Pictures\Camera Roll\Persona\52683173_p0.png");
+            //taggerWorker.SearchForMd5(@"link");
         }
     }
 }

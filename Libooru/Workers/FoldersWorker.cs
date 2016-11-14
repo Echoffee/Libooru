@@ -5,6 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using Libooru.Links;
+using System.Windows.Controls;
+using Libooru.Views;
+using d = System.Drawing;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
+
 
 namespace Libooru.Workers
 {
@@ -36,6 +42,34 @@ namespace Libooru.Workers
             core.SetStatus("");
         }
 
+        internal List<Pic> getPictureFiles()
+        {
+            var result = new List<Pic>();
+            var dInfo = new DirectoryInfo(core.config.Data.Folders.PictureFolderPath);
+            foreach (var f in dInfo.GetFiles())
+            {
+                if (pictureFileExtensions.Contains(f.Extension))
+                {
+                    d.Bitmap img = new d.Bitmap(f.FullName);
+                    d.Image.GetThumbnailImageAbort abort = new d.Image.GetThumbnailImageAbort(ThumbnailCallback);
+                    var t = img.GetThumbnailImage(200, 200, abort, IntPtr.Zero);
+
+
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        t.Save(ms, d.Imaging.ImageFormat.Jpeg);
+
+                        var b = ms.ToArray();
+                        var p = new Pic();
+                        p.Picture = b;
+                        p.Title = f.Name;
+                        result.Add(p);
+                    }
+                }
+            }
+            return result;
+        }
+
         public long getPictureFilesNum(string path)
         {
             var result = 0L;
@@ -62,6 +96,11 @@ namespace Libooru.Workers
                     result++;
             }
             return result;
+        }
+
+        public bool ThumbnailCallback()
+        {
+            return false;
         }
     }
 }

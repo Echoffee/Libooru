@@ -63,6 +63,12 @@
                 </Setter.Value>
             </Setter>
         </Style>
+            <DataTemplate DataType="{x:Type local:Pic}">
+                <StackPanel>
+                    <Image Source="{Binding Path=Picture}"/>
+                    <TextBlock Text="{Binding Path=Title}"/>
+                </StackPanel>
+            </DataTemplate>
     </Page.Resources>
 
     <Grid Background="#FF2D2D30" Margin="0,0,-0,-0">
@@ -72,6 +78,21 @@
             <TextBlock x:Name="textStatus" HorizontalAlignment="Left" Margin="5,5,0,5" TextWrapping="Wrap" Text="Status..." FontSize="11" Foreground="White" Width="155"/>
             <TextBlock x:Name="textInfos" Margin="0,5,5,5" TextWrapping="Wrap" Text="Infos..." FontSize="11" Foreground="White" TextAlignment="Right" HorizontalAlignment="Right" Width="155"/>
         </Grid>
+        <Grid x:Name="picGrid" Margin="5,35,5,55">
 
+                <ListBox Name="mainlb" ItemsSource="{Binding Path=listPic}" Background="{x:Null}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Width" Value="200"/>
+                        <Setter Property="Foreground" Value="White" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </Grid>
     </Grid>
 </Page>

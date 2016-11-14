@@ -9,8 +9,6 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Libooru.Links;
@@ -24,15 +22,26 @@ namespace Libooru.Views
     {
         public Core core { get; set; }
 
+        public List<Pic> listPic { get; set; }
+
         public MainPage()
         {
             InitializeComponent();
             ThemeService.Current.ChangeTheme(Theme.Dark);
+            
         }
 
         public void UpdateView()
         {
+            RefreshList();
             CountFiles();
+        }
+
+        private void RefreshList()
+        {
+            listPic = core.foldersWorker.getPictureFiles();
+            this.picGrid.DataContext = this;
+
         }
 
         public void CountFiles()
@@ -63,5 +72,6 @@ namespace Libooru.Views
         {
             this.core = core;
         }
+
     }
 }
