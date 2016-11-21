@@ -83,7 +83,6 @@ namespace Libooru.Views
 
         private void mainlb_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            core.SetStatus(e.VerticalOffset + e.ViewportHeight + ":" + e.ExtentHeight);
             if (e.VerticalOffset + e.ViewportHeight >= e.ExtentHeight && e.VerticalOffset + e.ViewportHeight != 0)
             {
                 RefreshList(listPic.Count);

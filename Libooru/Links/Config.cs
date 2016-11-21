@@ -73,9 +73,15 @@ namespace Libooru.Links
             }
 
             var tagFolderPath = path + @"/tags";
-            if (!Directory.Exists(path))
+            if (!Directory.Exists(tagFolderPath))
             {
                 Directory.CreateDirectory(tagFolderPath);
+            }
+
+            var thumbnailsFolderPath = path + @"/thumbnails";
+            if (!Directory.Exists(thumbnailsFolderPath))
+            {
+                Directory.CreateDirectory(thumbnailsFolderPath);
             }
         }
     }

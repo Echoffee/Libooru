@@ -19,6 +19,8 @@ namespace Libooru.Links
 
         public TaggerWorker taggerWorker { get; set; }
 
+        public ThumbnailsWorker thumbnailsWroker { get; set; }
+
         public string status { get; set; }
 
         public Core(MainWindow switcher)
@@ -35,6 +37,9 @@ namespace Libooru.Links
 
             tagsWorker = new TagsWorker(this);
             tagsWorker.TagsFolderPath = path + @"/tags";
+
+            thumbnailsWroker = new ThumbnailsWorker(this);
+            thumbnailsWroker.thumbnailsFolderPath = path + @"/thumbnails";
 
             taggerWorker = new TaggerWorker(this);
         }

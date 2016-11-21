@@ -77,21 +77,22 @@ namespace Libooru.Workers
                 var f = fs[i];
                 if (pictureFileExtensions.Contains(f.Extension))
                 {
-                    d.Bitmap img = new d.Bitmap(f.FullName);
-                    d.Image.GetThumbnailImageAbort abort = new d.Image.GetThumbnailImageAbort(ThumbnailCallback);
-                    var ratio = Math.Max(img.Height, img.Width) / 150;
-                    var t = img.GetThumbnailImage(img.Width / ratio, img.Height / ratio, abort, IntPtr.Zero);
+                    ////d.Bitmap img = new d.Bitmap(f.FullName);
+                    ////d.Image.GetThumbnailImageAbort abort = new d.Image.GetThumbnailImageAbort(ThumbnailCallback);
+                    ////var ratio = Math.Max(img.Height, img.Width) / 150;
+                    ////var t = img.GetThumbnailImage(img.Width / ratio, img.Height / ratio, abort, IntPtr.Zero);
 
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        t.Save(ms, d.Imaging.ImageFormat.Jpeg);
+                    ////using (MemoryStream ms = new MemoryStream())
+                    ////{
+                    ////    t.Save(ms, d.Imaging.ImageFormat.Jpeg);
 
-                        var b = ms.ToArray();
+                    ////    var b = ms.ToArray();
+                        var b = core.thumbnailsWroker.GetThumbnail(f.Name, f.FullName);
                         var p = new Pic();
                         p.Picture = b;
                         p.Title = f.Name;
                         resultList.Add(p);
-                    }
+                    ////}
                 }
             }
             result.list = resultList;
