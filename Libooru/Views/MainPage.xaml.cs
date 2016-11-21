@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Libooru.Links;
+using System.Collections.ObjectModel;
 
 namespace Libooru.Views
 {
@@ -22,28 +23,31 @@ namespace Libooru.Views
     {
         public Core core { get; set; }
 
-        public List<Pic> listPic { get; set; }
+        public ObservableCollection<Pic> listPic { get; set; }
 
         public MainPage()
         {
             InitializeComponent();
             ThemeService.Current.ChangeTheme(Theme.Dark);
-            this.listPic = new List<Pic>();
+            this.listPic = new ObservableCollection<Pic>();
             
         }
 
         public void UpdateView()
         {
-            RefreshList();
+            //RefreshList();
             CountFiles();
         }
 
-        private void RefreshList(int index = 0, int limit = 20)
+        private void RefreshList(int index = 0, int limit = 5)
         {
             if (index >= listPic.Count)
             {
                 var result = core.foldersWorker.getPictureFiles(index, limit);
-                listPic.AddRange(result.list);
+                foreach (var item in result.list)
+                {
+                    listPic.Add(item);
+                }
                 this.picGrid.DataContext = this;
             }
         }
@@ -77,5 +81,13 @@ namespace Libooru.Views
             this.core = core;
         }
 
+        private void mainlb_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            core.SetStatus(e.VerticalOffset + e.ViewportHeight + ":" + e.ExtentHeight);
+            if (e.VerticalOffset + e.ViewportHeight >= e.ExtentHeight && e.VerticalOffset + e.ViewportHeight != 0)
+            {
+                RefreshList(listPic.Count);
+            }
+        }
     }
 }

@@ -56,7 +56,7 @@ namespace Libooru.Workers
             core.SetStatus("");
         }
 
-        internal ResultGetPictureFiles getPictureFiles(int num, int limit = 10)
+        internal ResultGetPictureFiles getPictureFiles(int num, int limit = 5)
         {
             var result = new ResultGetPictureFiles();
             var resultList = new List<Pic>();
@@ -70,11 +70,11 @@ namespace Libooru.Workers
                 result.status = ResultGetPictureFiles.Status.Success_Empty;
             }
             //foreach (var f in dInfo.GetFiles())
-
-            for (int i = num; i < limit; i++)
+            var fs = dInfo.GetFiles().Where(x => pictureFileExtensions.Contains(x.Extension)).ToList();
+            for (int i = num; i < limit + num && i < fs.Count; i++)
             {
                 
-                var f = dInfo.GetFiles()[i];
+                var f = fs[i];
                 if (pictureFileExtensions.Contains(f.Extension))
                 {
                     d.Bitmap img = new d.Bitmap(f.FullName);

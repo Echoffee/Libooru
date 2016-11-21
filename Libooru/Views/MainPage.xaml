@@ -65,8 +65,9 @@
         </Style>
             <DataTemplate DataType="{x:Type local:Pic}">
                 <StackPanel>
-                    <Image Source="{Binding Path=Picture}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </StackPanel>
+                <Image Source="{Binding Path=Picture}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    
+            </StackPanel>
             </DataTemplate>
     </Page.Resources>
 
@@ -79,7 +80,7 @@
         </Grid>
         <Grid x:Name="picGrid" Margin="5,35,5,55">
 
-                <ListBox Name="mainlb" ItemsSource="{Binding Path=listPic}" Background="{x:Null}" >
+                <ListBox Name="mainlb" ItemsSource="{Binding Path=listPic}" Background="{x:Null}" ScrollViewer.ScrollChanged="mainlb_ScrollChanged">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Columns="5" ScrollViewer.CanContentScroll="False" />
