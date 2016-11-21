@@ -13,6 +13,7 @@ namespace Libooru.Views
     {
         public byte[] Picture { get; set; }
 
+        
         public string Title { get; set; }
 
     }

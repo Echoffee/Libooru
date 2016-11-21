@@ -28,6 +28,7 @@ namespace Libooru.Views
         {
             InitializeComponent();
             ThemeService.Current.ChangeTheme(Theme.Dark);
+            this.listPic = new List<Pic>();
             
         }
 
@@ -37,11 +38,14 @@ namespace Libooru.Views
             CountFiles();
         }
 
-        private void RefreshList()
+        private void RefreshList(int index = 0, int limit = 20)
         {
-            listPic = core.foldersWorker.getPictureFiles();
-            this.picGrid.DataContext = this;
-
+            if (index >= listPic.Count)
+            {
+                var result = core.foldersWorker.getPictureFiles(index, limit);
+                listPic.AddRange(result.list);
+                this.picGrid.DataContext = this;
+            }
         }
 
         public void CountFiles()

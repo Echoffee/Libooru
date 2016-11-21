@@ -14,6 +14,20 @@ using System.Windows.Media;
 
 namespace Libooru.Workers
 {
+    public class ResultGetPictureFiles
+    {
+        public List<Pic> list { get; set; }
+        public enum Status
+        {
+            Success_Empty,
+            Success_More,
+            Failure
+        };
+
+        public Status status { get; set; }
+        public int statusReply { get; set; }
+    }
+
     public class FoldersWorker
     {
         public Core core { get; set; }
@@ -42,18 +56,31 @@ namespace Libooru.Workers
             core.SetStatus("");
         }
 
-        internal List<Pic> getPictureFiles()
+        internal ResultGetPictureFiles getPictureFiles(int num, int limit = 10)
         {
-            var result = new List<Pic>();
+            var result = new ResultGetPictureFiles();
+            var resultList = new List<Pic>();
             var dInfo = new DirectoryInfo(core.config.Data.Folders.PictureFolderPath);
-            foreach (var f in dInfo.GetFiles())
+            if (dInfo.GetFiles().Length > num + limit)
             {
+                result.status = ResultGetPictureFiles.Status.Success_More;
+                result.statusReply = dInfo.GetFiles().Length - num + limit;
+            }else
+            {
+                result.status = ResultGetPictureFiles.Status.Success_Empty;
+            }
+            //foreach (var f in dInfo.GetFiles())
+
+            for (int i = num; i < limit; i++)
+            {
+                
+                var f = dInfo.GetFiles()[i];
                 if (pictureFileExtensions.Contains(f.Extension))
                 {
                     d.Bitmap img = new d.Bitmap(f.FullName);
                     d.Image.GetThumbnailImageAbort abort = new d.Image.GetThumbnailImageAbort(ThumbnailCallback);
-                    var t = img.GetThumbnailImage(200, 200, abort, IntPtr.Zero);
-
+                    var ratio = Math.Max(img.Height, img.Width) / 150;
+                    var t = img.GetThumbnailImage(img.Width / ratio, img.Height / ratio, abort, IntPtr.Zero);
 
                     using (MemoryStream ms = new MemoryStream())
                     {
@@ -63,10 +90,11 @@ namespace Libooru.Workers
                         var p = new Pic();
                         p.Picture = b;
                         p.Title = f.Name;
-                        result.Add(p);
+                        resultList.Add(p);
                     }
                 }
             }
+            result.list = resultList;
             return result;
         }
 
