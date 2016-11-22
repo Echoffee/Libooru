@@ -48,7 +48,6 @@ namespace Libooru.Workers
         public byte[] GetThumbnail(string file, string path = "")
         {
             var dInfo = new DirectoryInfo(thumbnailsFolderPath);
-            //if (dInfo.GetFiles().Where(x => x.Name.Equals(file)).ToArray().Length >= 1)
             if (File.Exists(thumbnailsFolderPath + "/" + file))
             {
                 return File.ReadAllBytes(thumbnailsFolderPath + "/" + file);

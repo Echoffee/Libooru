@@ -73,7 +73,8 @@ namespace Libooru.Views
 
         private void menuButton_Click(object sender, RoutedEventArgs e)
         {
-            core.switcher.GoToMenu();
+            //core.switcher.GoToMenu();
+            core.taggerWorker.QueryDanbooruIQDB(@"C:\Users\echo\Documents\Libooru\thumbnails\Saved Pictures\572f9631fd502dbe39364b16a953d2f6.jpg");
         }
 
         public void UtilizeState(Core core)

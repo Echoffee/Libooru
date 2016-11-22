@@ -1,11 +1,13 @@
 ﻿using Libooru.Externals.Danbooru;
 using Libooru.Links;
+using Libooru.Workers.Iqdb;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +42,24 @@ namespace Libooru.Workers
             }
 
             return result;
+        }
+
+        public void QueryDanbooruIQDB(string filePath)
+        {
+            var f = new ByteArrayContent(File.ReadAllBytes(filePath));
+            using (var client = new HttpClient())
+            using (var formData = new MultipartFormDataContent())
+            {
+                formData.Add(f, "file", "picture");
+                var response = client.PostAsync("http://danbooru.iqdb.org/", formData).Result;
+                if (!response.IsSuccessStatusCode)
+                {
+                    return;
+                }
+                var result = response.Content.ReadAsStringAsync().Result;
+                var queryresult = new IqdbQueryResult(result);
+                queryresult.Compute();
+            }
         }
 
         public string GetMd5FromFile(string path)
