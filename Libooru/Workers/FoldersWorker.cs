@@ -38,9 +38,12 @@ namespace Libooru.Workers
 
         private string[] pictureFileExtensions = { ".jpg", ".jpeg", ".png" };
 
+        public List<string> list { get; set; }
+
         public FoldersWorker(Core core)
         {
             this.core = core;
+            this.list = new List<string>();
         }
 
         public void scanForPictures()
@@ -53,46 +56,67 @@ namespace Libooru.Workers
             pictureNumber = getPictureFilesNum(core.config.Data.Folders.PictureFolderPath);
             if (core.config.Data.Folders.NewPictureFolderPath.Equals(core.config.Data.Folders.PictureFolderPath))
                 pictureNumber -= newPictureNumber;
+            core.config.SavePictureList(list);
             core.SetStatus("");
         }
+
+        //internal ResultGetPictureFiles getPictureFiles(int num, int limit = 5)
+        //{
+        //    var result = new ResultGetPictureFiles();
+        //    var resultList = new List<Pic>();
+        //    var dInfo = new DirectoryInfo(core.config.Data.Folders.PictureFolderPath);
+        //    if (dInfo.GetFiles().Length > num + limit)
+        //    {
+        //        result.status = ResultGetPictureFiles.Status.Success_More;
+        //        result.statusReply = dInfo.GetFiles().Length - num + limit;
+        //    }
+        //    else
+        //    {
+        //        result.status = ResultGetPictureFiles.Status.Success_Empty;
+        //    }
+        //    //foreach (var f in dInfo.GetFiles())
+        //    var fs = dInfo.GetFiles().Where(x => pictureFileExtensions.Contains(x.Extension)).ToList();
+        //    for (int i = num; i < limit + num && i < fs.Count; i++)
+        //    {
+
+        //        var f = fs[i];
+        //        if (pictureFileExtensions.Contains(f.Extension))
+        //        {
+        //            ////d.Bitmap img = new d.Bitmap(f.FullName);
+        //            ////d.Image.GetThumbnailImageAbort abort = new d.Image.GetThumbnailImageAbort(ThumbnailCallback);
+        //            ////var ratio = Math.Max(img.Height, img.Width) / 150;
+        //            ////var t = img.GetThumbnailImage(img.Width / ratio, img.Height / ratio, abort, IntPtr.Zero);
+
+        //            ////using (MemoryStream ms = new MemoryStream())
+        //            ////{
+        //            ////    t.Save(ms, d.Imaging.ImageFormat.Jpeg);
+
+        //            ////    var b = ms.ToArray();
+        //            var b = core.thumbnailsWroker.GetThumbnail(f.Name, f.FullName);
+        //            var p = new Pic();
+        //            p.Picture = b;
+        //            p.Title = f.Name;
+        //            resultList.Add(p);
+        //            ////}
+        //        }
+        //    }
+        //    result.list = resultList;
+        //    return result;
+        //}
 
         internal ResultGetPictureFiles getPictureFiles(int num, int limit = 5)
         {
             var result = new ResultGetPictureFiles();
             var resultList = new List<Pic>();
-            var dInfo = new DirectoryInfo(core.config.Data.Folders.PictureFolderPath);
-            if (dInfo.GetFiles().Length > num + limit)
+            var fileList = core.config.GetPictures(num, limit);
+            foreach (var f in fileList)
             {
-                result.status = ResultGetPictureFiles.Status.Success_More;
-                result.statusReply = dInfo.GetFiles().Length - num + limit;
-            }else
-            {
-                result.status = ResultGetPictureFiles.Status.Success_Empty;
-            }
-            //foreach (var f in dInfo.GetFiles())
-            var fs = dInfo.GetFiles().Where(x => pictureFileExtensions.Contains(x.Extension)).ToList();
-            for (int i = num; i < limit + num && i < fs.Count; i++)
-            {
-                
-                var f = fs[i];
-                if (pictureFileExtensions.Contains(f.Extension))
-                {
-                    ////d.Bitmap img = new d.Bitmap(f.FullName);
-                    ////d.Image.GetThumbnailImageAbort abort = new d.Image.GetThumbnailImageAbort(ThumbnailCallback);
-                    ////var ratio = Math.Max(img.Height, img.Width) / 150;
-                    ////var t = img.GetThumbnailImage(img.Width / ratio, img.Height / ratio, abort, IntPtr.Zero);
-
-                    ////using (MemoryStream ms = new MemoryStream())
-                    ////{
-                    ////    t.Save(ms, d.Imaging.ImageFormat.Jpeg);
-
-                    ////    var b = ms.ToArray();
-                        var b = core.thumbnailsWroker.GetThumbnail(f.Name, f.FullName);
-                        var p = new Pic();
-                        p.Picture = b;
-                        p.Title = f.Name;
-                        resultList.Add(p);
-                    ////}
+                if (f != null)
+                { 
+                    var b = core.thumbnailsWroker.GetThumbnail(f);
+                    var p = new Pic();
+                    p.Picture = b;
+                    resultList.Add(p);
                 }
             }
             result.list = resultList;
@@ -110,7 +134,10 @@ namespace Libooru.Workers
             foreach (var f in dInfo.GetFiles())
             {
                 if (pictureFileExtensions.Contains(f.Extension))
+                {
                     result++;
+                    list.Add(f.FullName.Replace(core.config.Data.Folders.PictureFolderPath + @"\", ""));
+                }
             }
             return result;
         }

@@ -18,6 +18,8 @@ namespace Libooru.Links
 
         public ConfigDataSet Data { get; set; }
 
+        public List<string> PicFiles { get; set; }
+
         public Config(Core core)
         {
             this.core = core;
@@ -36,6 +38,44 @@ namespace Libooru.Links
                 s = r.ReadToEnd();
             }
             this.Data = JsonConvert.DeserializeObject<ConfigDataSet>(s);
+        }
+
+        public List<string> GetPictures(int index = 0, int count = 20)
+        {
+            var path = AppFolderPath;
+            var filePath = path + @"/list.lb";
+            this.PicFiles = new List<string>();
+            var f = File.OpenRead(filePath);
+            string s;
+            var counter = -index;
+            using (StreamReader r = new StreamReader(f))
+            {
+                
+                s = r.ReadLine();
+                while (s != string.Empty && counter < count)
+                {
+                    if (counter >= 0)
+                        PicFiles.Add(s);
+                    s = r.ReadLine();
+                    counter++;
+                }
+            }
+            return PicFiles;
+        }
+
+        public void SavePictureList(IList<string> list)
+        {
+            var path = AppFolderPath;
+            var filePath = path + @"/list.lb";
+
+            string s;
+            using (var w = new StreamWriter(filePath, false))
+            {
+                foreach (var item in list)
+                {
+                    w.WriteLine(item);
+                }
+            }
         }
 
         public void ApplyChanges()

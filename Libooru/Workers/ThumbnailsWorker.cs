@@ -27,19 +27,28 @@ namespace Libooru.Workers
             var ratio = Math.Max(img.Height, img.Width) / 150;
             var t = img.GetThumbnailImage(img.Width / ratio, img.Height / ratio, abort, IntPtr.Zero);
             var fullPath = thumbnailsFolderPath + "/" + file;
+            string c = "";
+            string[] a = file.Split('\\', '/');
+            for (int i = 0; i < a.Length - 1; i++)
+            {
+                c += a[i];
+                if (!Directory.Exists(thumbnailsFolderPath + "/" + c))
+                    Directory.CreateDirectory(thumbnailsFolderPath + "/" + c);
+            }
             t.Save(fullPath);
             return fullPath;
         }
 
-        public byte[] GetThumbnail(string file, string path)
+        public byte[] GetThumbnail(string file, string path = "")
         {
             var dInfo = new DirectoryInfo(thumbnailsFolderPath);
-            if (dInfo.GetFiles().Where(x => x.Name.Equals(file)).ToArray().Length >= 1)
+            //if (dInfo.GetFiles().Where(x => x.Name.Equals(file)).ToArray().Length >= 1)
+            if (File.Exists(thumbnailsFolderPath + "/" + file))
             {
                 return File.ReadAllBytes(thumbnailsFolderPath + "/" + file);
             }else
             {
-                GenerateThumbnail(file, path);
+                GenerateThumbnail(file, core.config.Data.Folders.PictureFolderPath + "/" + file);
                 return File.ReadAllBytes(thumbnailsFolderPath + "/" + file);
             }
         }
