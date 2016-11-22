@@ -25,6 +25,11 @@ namespace Libooru.Workers
             d.Bitmap img = new d.Bitmap(path);
             d.Image.GetThumbnailImageAbort abort = new d.Image.GetThumbnailImageAbort(ThumbnailCallback);
             var ratio = Math.Max(img.Height, img.Width) / 150;
+            if (ratio <= 0)
+            {
+                ratio = 150 / Math.Max(img.Height, img.Width);
+            }
+
             var t = img.GetThumbnailImage(img.Width / ratio, img.Height / ratio, abort, IntPtr.Zero);
             var fullPath = thumbnailsFolderPath + "/" + file;
             string c = "";
@@ -34,6 +39,7 @@ namespace Libooru.Workers
                 c += a[i];
                 if (!Directory.Exists(thumbnailsFolderPath + "/" + c))
                     Directory.CreateDirectory(thumbnailsFolderPath + "/" + c);
+                c += "/";
             }
             t.Save(fullPath);
             return fullPath;

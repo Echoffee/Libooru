@@ -64,6 +64,7 @@ namespace Libooru
 
         internal void UpdateAllViews()
         {
+            mainPage.listPic = new System.Collections.ObjectModel.ObservableCollection<Pic>();
             mainPage.UpdateView();
             menuPage.UpdateView();
             menuPage_Directories.UpdateView();
