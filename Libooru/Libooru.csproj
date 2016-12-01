@@ -52,6 +52,10 @@
       <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="LiteDB, Version=2.0.4.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiteDB.2.0.4\lib\net35\LiteDB.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MetroRadiance, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MetroRadiance.2.3.0\lib\net46\MetroRadiance.dll</HintPath>
       <Private>True</Private>
@@ -109,6 +113,11 @@
     <Compile Include="Links\ConfigData\General.cs" />
     <Compile Include="Links\ConfigData\Tags.cs" />
     <Compile Include="Links\Core.cs" />
+    <Compile Include="Models\Folder.cs" />
+    <Compile Include="Models\Picture.cs" />
+    <Compile Include="Models\Tag.cs" />
+    <Compile Include="Queries\PictureQueryResult.cs" />
+    <Compile Include="Queries\Query.cs" />
     <Compile Include="Switcher.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -130,7 +139,7 @@
     <Compile Include="Workers\TagsItems\SearchResults.cs" />
     <Compile Include="Workers\TagsItems\TagFile.cs" />
     <Compile Include="Workers\TagsWorker.cs" />
-    <Compile Include="Workers\ThumbnailsWorker.cs" />
+    <Compile Include="Workers\PicturesWorker.cs" />
     <Page Include="PageSwitcher.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

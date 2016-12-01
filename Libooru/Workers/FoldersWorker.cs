@@ -10,7 +10,9 @@ using Libooru.Views;
 using d = System.Drawing;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
-
+using Libooru.Queries;
+using LiteDB;
+using Libooru.Models;
 
 namespace Libooru.Workers
 {
@@ -36,6 +38,8 @@ namespace Libooru.Workers
 
         public long newPictureNumber { get; set; }
 
+        public LiteCollection<Folder> FolderCollection { get; set; }
+
         private string[] pictureFileExtensions = { ".jpg", ".jpeg", ".png" };
 
         public List<string> list { get; set; }
@@ -46,7 +50,49 @@ namespace Libooru.Workers
             this.list = new List<string>();
         }
 
-        public void scanForPictures()
+        public void ScanForNewPictures()
+        {
+            var folderList = FolderCollection.Find(Query.All(Query.Descending));
+            foreach (var folderItem in folderList)
+            {
+                var folder = new DirectoryInfo(folderItem.Path);
+                if (folder.GetFiles().Length != folderItem.FileCount)
+                {
+                    var fileItems = core.picturesWroker.GetPicturesInFolder(folderItem.Path).Pictures;
+                    var files = folder.GetFiles();
+                    var newPictures = new List<Picture>();
+                    var md5s = new Dictionary<string, FileInfo>();
+                    foreach (var file in files) //TODO MT
+                    {
+                        var md5 = core.taggerWorker.GetMd5FromFile(file.FullName);
+                        if (!md5s.ContainsKey(md5))
+                            md5s.Add(md5, file);
+                    }
+
+                    foreach (var file in fileItems)
+                    {
+                        if (md5s.ContainsKey(file.Md5))
+                            md5s.Remove(file.Md5);
+                    }
+
+                    foreach (var file in md5s) //TODO MT
+                    {
+                        var p = new Picture();
+                        p.Date = DateTime.UtcNow;
+                        p.Directory = folder.FullName;
+                        p.Md5 = file.Key;
+                        p.Path = file.Value.FullName;
+                        p.IsNew = true;
+
+                        core.picturesWroker.InsertNewPicture(p);
+                    }
+                    folderItem.FileCount = folder.GetFiles().Length;
+                    FolderCollection.Update(folderItem);
+                }
+            }
+        }
+
+        public void scanForPicturesOld()
         {
             core.SetStatus("Scanning folders...");
             if (core.config.Data.Folders.NewPictureFolderPath.Equals(core.config.Data.Folders.PictureFolderPath))
@@ -113,7 +159,7 @@ namespace Libooru.Workers
             {
                 if (f != null)
                 { 
-                    var b = core.thumbnailsWroker.GetThumbnail(f);
+                    var b = core.picturesWroker.GetThumbnail(f);
                     var p = new Pic();
                     p.Picture = b;
                     resultList.Add(p);

@@ -1,4 +1,7 @@
-﻿using Libooru.Workers;
+﻿using Libooru.Links.ConfigData;
+using Libooru.Models;
+using Libooru.Workers;
+using LiteDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +22,9 @@ namespace Libooru.Links
 
         public TaggerWorker taggerWorker { get; set; }
 
-        public ThumbnailsWorker thumbnailsWroker { get; set; }
+        public PicturesWorker picturesWroker { get; set; }
+
+        public LiteDatabase Database { get; set; }
 
         public string status { get; set; }
 
@@ -36,17 +41,20 @@ namespace Libooru.Links
             foldersWorker = new FoldersWorker(this);
 
             tagsWorker = new TagsWorker(this);
-            tagsWorker.TagsFolderPath = path + @"/tags";
 
-            thumbnailsWroker = new ThumbnailsWorker(this);
-            thumbnailsWroker.thumbnailsFolderPath = path + @"/thumbnails";
+            picturesWroker = new PicturesWorker(this);
 
             taggerWorker = new TaggerWorker(this);
+
+            Database = new LiteDatabase(path + @"/data.db");
+            tagsWorker.tagCollection = Database.GetCollection<Tag>("tags");
+            picturesWroker.pictureCollection = Database.GetCollection<Picture>("pictures");
+            foldersWorker.FolderCollection = Database.GetCollection<Folder>("folders");
         }
 
         public void Update()
         {
-            foldersWorker.scanForPictures();
+            //foldersWorker.scanForPictures();
             switcher.UpdateAllViews();
         }
 

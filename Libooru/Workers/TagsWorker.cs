@@ -7,6 +7,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Libooru.Links.ConfigData;
+using LiteDB;
+using Libooru.Models;
 
 namespace Libooru.Workers
 {
@@ -17,6 +20,7 @@ namespace Libooru.Workers
         public string TagsFolderPath { get; set; }
 
         public long tagNumber { get; set; }
+        public LiteCollection<Tag> tagCollection { get; internal set; }
 
         private string[] tagFileExtensions = { ".tag" };
 

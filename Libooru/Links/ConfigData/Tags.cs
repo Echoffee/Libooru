@@ -10,6 +10,8 @@ namespace Libooru.Links.ConfigData
     [DataContract]
     public class Tags
     {
+
+
         [DataMember]
         public int SafetyLevel { get; set; }
     }

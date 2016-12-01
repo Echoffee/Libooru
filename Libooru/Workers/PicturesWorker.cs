@@ -6,18 +6,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Libooru.Models;
+using LiteDB;
+using Libooru.Queries;
 
 namespace Libooru.Workers
 {
-    public class ThumbnailsWorker
+    public class PicturesWorker
     {
         public Core core { get; set; }
 
         public string thumbnailsFolderPath { get; set; }
 
-        public ThumbnailsWorker(Core core)
+        public LiteCollection<Picture> pictureCollection { get; internal set; }
+
+        public PicturesWorker(Core core)
         {
             this.core = core;
+        }
+
+        public PictureQueryResult RetrievePictures(int offset = 0, int count = 5)
+        {
+            var result = new PictureQueryResult();
+            pictureCollection.EnsureIndex(x => x.Date);
+            var r = pictureCollection.Find(Query.All(Query.Descending), offset, count);
+            result.Pictures = r.ToList();
+            return result;
         }
 
         public string GenerateThumbnail(string file, string path, int resolution = 150)
@@ -45,6 +59,15 @@ namespace Libooru.Workers
             return fullPath;
         }
 
+        public PictureQueryResult GetPicturesInFolder(string path)
+        {
+            var result = new PictureQueryResult();
+            pictureCollection.EnsureIndex(x => x.Path);
+            var r = pictureCollection.Find(x => x.Directory.Equals(path));
+            result.Pictures = r.ToList();
+            return result;
+        }
+
         public byte[] GetThumbnail(string file, string path = "")
         {
             var dInfo = new DirectoryInfo(thumbnailsFolderPath);
@@ -53,9 +76,15 @@ namespace Libooru.Workers
                 return File.ReadAllBytes(thumbnailsFolderPath + "/" + file);
             }else
             {
+                
                 GenerateThumbnail(file, core.config.Data.Folders.PictureFolderPath + "/" + file);
                 return File.ReadAllBytes(thumbnailsFolderPath + "/" + file);
             }
+        }
+
+        public void InsertNewPicture(Picture p)
+        {
+            pictureCollection.Insert(p);
         }
 
         public bool ThumbnailCallback()
