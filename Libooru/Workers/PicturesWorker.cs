@@ -63,14 +63,17 @@ namespace Libooru.Workers
 
         public void HandleNewPictures()
         {
+            pictureCollection.EnsureIndex("IsNew");
             var p = pictureCollection.Find(x => x.IsNew).ToList();
             foreach (var picture in p)
             {
                 picture.Thumbnail = GenerateThumbnail(picture.Path);
-                d.Bitmap img = new d.Bitmap(picture.Path);
-                picture.Width = img.Width;
-                picture.Height = img.Height;
-                picture.Size = (new FileInfo(picture.Path)).Length;
+                using (d.Bitmap img = new d.Bitmap(picture.Path))
+                {
+                    picture.Width = img.Width;
+                    picture.Height = img.Height;
+                }
+                    picture.Size = (new FileInfo(picture.Path)).Length;
                 picture.IsNew = false;
                 pictureCollection.Update(picture);
             }

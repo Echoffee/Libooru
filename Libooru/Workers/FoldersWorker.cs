@@ -52,7 +52,8 @@ namespace Libooru.Workers
 
         public List<Folder> GetFolders()
         {
-            return FolderCollection.Find(Query.All(Query.Descending)).ToList();
+            FolderCollection.EnsureIndex("Id");
+            return FolderCollection.Find(Query.All(Query.Ascending)).ToList();
         }
 
         public bool ScanForNewPictures()
@@ -99,6 +100,15 @@ namespace Libooru.Workers
             }
 
             return result;
+        }
+
+        public void AddNewFolder(string name, string path)
+        {
+            var o = new Folder();
+            o.Name = name;
+            o.Path = path;
+            o.FileCount = 0;
+            FolderCollection.Insert(o);
         }
 
         /*public void scanForPicturesOld()

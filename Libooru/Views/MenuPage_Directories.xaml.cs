@@ -84,37 +84,24 @@ namespace Libooru.Views
         public void ChooseDirectoryOpt2(object sender, RoutedEventArgs e)
         {
             ChooseDirectory(2);
+        }*/
+
+        public void AddFolder(object sender, RoutedEventArgs e)
+        {
+            core.foldersWorker.AddNewFolder(textboxFolderName.Text, textboxFolderPath.Text);
+            GetFolders();
         }
 
-        public void ChooseDirectory(int opt)
+        public void ChooseDirectory(object sender, RoutedEventArgs e)
         { 
             var dialog = new CommonOpenFileDialog();
             dialog.IsFolderPicker = true;
             dialog.Multiselect = false;
-            string title = "";
-            switch (opt)
-            {
-                case 1:
-                    title = "Picture folder";
-                    dialog.DefaultDirectory = core.config.Data.Folders.PictureFolderPath;
-                    break;
-                case 2:
-                    title = "New pictures folder";
-                    dialog.DefaultDirectory = core.config.Data.Folders.NewPictureFolderPath;
-                    break;
-            }
+            var title = "New pictures folder";
             dialog.Title = title;
             CommonFileDialogResult result = dialog.ShowDialog();
-            switch(opt)
-            {
-                case 1:
-                    textboxPictureFolder.Text = dialog.FileName;
-                    break;
-                case 2:
-                    textboxNewPictureFolder.Text = dialog.FileName;
-                    break;
-            }
-        }*/
+            textboxFolderPath.Text = dialog.FileName;
+        }
 
         public void UpdateView()
         {
