@@ -16,8 +16,6 @@ namespace Libooru.Workers
     {
         public Core core { get; set; }
 
-        public string thumbnailsFolderPath { get; set; }
-
         public LiteCollection<Picture> pictureCollection { get; internal set; }
 
         public PicturesWorker(Core core)
@@ -34,7 +32,7 @@ namespace Libooru.Workers
             return result;
         }
 
-        public string GenerateThumbnail(string file, string path, int resolution = 150)
+        public byte[] GenerateThumbnail(string file, string path, int resolution = 150)
         {
             d.Bitmap img = new d.Bitmap(path);
             d.Image.GetThumbnailImageAbort abort = new d.Image.GetThumbnailImageAbort(ThumbnailCallback);
@@ -45,18 +43,11 @@ namespace Libooru.Workers
             }
 
             var t = img.GetThumbnailImage(img.Width / ratio, img.Height / ratio, abort, IntPtr.Zero);
-            var fullPath = thumbnailsFolderPath + "/" + file;
-            string c = "";
-            string[] a = file.Split('\\', '/');
-            for (int i = 0; i < a.Length - 1; i++)
+            using (var s = new MemoryStream())
             {
-                c += a[i];
-                if (!Directory.Exists(thumbnailsFolderPath + "/" + c))
-                    Directory.CreateDirectory(thumbnailsFolderPath + "/" + c);
-                c += "/";
+                t.Save(s, d.Imaging.ImageFormat.Jpeg);
+                return s.ToArray();
             }
-            t.Save(fullPath);
-            return fullPath;
         }
 
         public PictureQueryResult GetPicturesInFolder(string path)
