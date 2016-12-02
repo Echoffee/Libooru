@@ -92,7 +92,7 @@ namespace Libooru.Workers
             }
         }
 
-        public void scanForPicturesOld()
+        /*public void scanForPicturesOld()
         {
             core.SetStatus("Scanning folders...");
             if (core.config.Data.Folders.NewPictureFolderPath.Equals(core.config.Data.Folders.PictureFolderPath))
@@ -104,7 +104,7 @@ namespace Libooru.Workers
                 pictureNumber -= newPictureNumber;
             core.config.SavePictureList(list);
             core.SetStatus("");
-        }
+        }*/
 
         //internal ResultGetPictureFiles getPictureFiles(int num, int limit = 5)
         //{
@@ -150,7 +150,7 @@ namespace Libooru.Workers
         //    return result;
         //}
 
-        internal ResultGetPictureFiles getPictureFiles(int num, int limit = 5)
+        /*internal ResultGetPictureFiles getPictureFiles(int num, int limit = 5)
         {
             var result = new ResultGetPictureFiles();
             var resultList = new List<Pic>();
@@ -167,9 +167,9 @@ namespace Libooru.Workers
             }
             result.list = resultList;
             return result;
-        }
+        }*/
 
-        public long getPictureFilesNum(string path)
+        /*public long getPictureFilesNum(string path)
         {
             var result = 0L;
             var dInfo = new DirectoryInfo(path);
@@ -186,8 +186,8 @@ namespace Libooru.Workers
                 }
             }
             return result;
-        }
-
+        }*/
+        /*
         public long getPictureFilesNumWithoutDiving(string path)
         {
             var result = 0L;
@@ -199,7 +199,7 @@ namespace Libooru.Workers
             }
             return result;
         }
-
+        */
         public bool ThumbnailCallback()
         {
             return false;

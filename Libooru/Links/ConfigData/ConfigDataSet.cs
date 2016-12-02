@@ -14,7 +14,7 @@ namespace Libooru.Links.ConfigData
         public General General { get; set; }
 
         [DataMember]
-        public Folders Folders { get; set; }
+        public IList<Folders> Folders { get; set; }
 
         [DataMember]
         public Tags Tags { get; set; }
@@ -25,12 +25,11 @@ namespace Libooru.Links.ConfigData
         public ConfigDataSet()
         {
             this.General = new General();
-            this.Folders = new Folders();
+            this.Folders = new List<Folders>();
             this.Tags = new Tags();
             this.Externals = new Externals();
 
-            this.Folders.PictureFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-            this.Folders.NewPictureFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            this.Folders.Add(new Folders("Default", Environment.GetFolderPath(Environment.SpecialFolder.MyPictures)));
 
             this.Tags.SafetyLevel = 0;
 

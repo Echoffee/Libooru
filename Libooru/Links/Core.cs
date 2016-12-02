@@ -54,6 +54,7 @@ namespace Libooru.Links
 
         public void Update()
         {
+            foldersWorker.ScanForNewPictures();
             //foldersWorker.scanForPictures();
             switcher.UpdateAllViews();
         }

@@ -77,10 +77,10 @@
         <Grid Margin="190,10,10,55">
             <Label x:Name="label1" Content="Picture folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White"/>
             <TextBox x:Name="textboxPictureFolder" Height="20" Margin="130,14,45,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Background="#FF1B1B1C" Foreground="White" Focusable="False"/>
-            <Button x:Name="browseFolderOpt1" Content="..." Margin="0,14,10,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" Click="ChooseDirectoryOpt1"/>
+            <Button x:Name="browseFolderOpt1" Content="..." Margin="0,14,10,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" />
             <Label x:Name="label2" Content="New pictures folder" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Foreground="White"/>
             <TextBox x:Name="textboxNewPictureFolder" Height="20" Margin="130,50,45,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Background="#FF1B1B1C" Foreground="White" Focusable="False"/>
-            <Button x:Name="browseFolderOpt2" Content="..." Margin="0,50,10,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" Click="ChooseDirectoryOpt2"/>
+            <Button x:Name="browseFolderOpt2" Content="..." Margin="0,50,10,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" />
         </Grid>
         <Button x:Name="menuApply" Content="Apply" Margin="0,0,10,30" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Bottom" ForceCursor="True" Click="ApplyChanges" HorizontalAlignment="Right" Width="75"/>
 

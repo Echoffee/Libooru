@@ -39,7 +39,7 @@ namespace Libooru.Views
             CountFiles();
         }
 
-        private void RefreshList(int index = 0, int limit = 5)
+        /*private void RefreshList(int index = 0, int limit = 5)
         {
             if (index >= listPic.Count)
             {
@@ -50,7 +50,7 @@ namespace Libooru.Views
                 }
                 this.picGrid.DataContext = this;
             }
-        }
+        }*/
 
         public void CountFiles()
         {
@@ -82,12 +82,12 @@ namespace Libooru.Views
             this.core = core;
         }
 
-        private void mainlb_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        /*private void mainlb_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             if (e.VerticalOffset + e.ViewportHeight >= e.ExtentHeight && e.VerticalOffset + e.ViewportHeight != 0)
             {
                 RefreshList(listPic.Count);
             }
-        }
+        }*/
     }
 }

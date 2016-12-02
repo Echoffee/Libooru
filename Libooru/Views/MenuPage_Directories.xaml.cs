@@ -53,15 +53,15 @@ namespace Libooru.Views
         public void ApplyChanges(object sender, RoutedEventArgs e)
         {
             core.SetStatus("Applying changes...");
-            core.config.Data.Folders.PictureFolderPath = textboxPictureFolder.Text;
-            core.config.Data.Folders.NewPictureFolderPath = textboxNewPictureFolder.Text;
+            //core.config.Data.Folders.PictureFolderPath = textboxPictureFolder.Text;
+            //core.config.Data.Folders.NewPictureFolderPath = textboxNewPictureFolder.Text;
             core.config.ApplyChanges();
             core.SetStatus("Done.");
             UpdateView();
             core.SetStatus("");
         }
 
-        public void ChooseDirectoryOpt1(object sender, RoutedEventArgs e)
+        /*public void ChooseDirectoryOpt1(object sender, RoutedEventArgs e)
         {
             ChooseDirectory(1);
         }
@@ -99,7 +99,7 @@ namespace Libooru.Views
                     textboxNewPictureFolder.Text = dialog.FileName;
                     break;
             }
-        }
+        }*/
 
         public void UpdateView()
         {
@@ -109,8 +109,8 @@ namespace Libooru.Views
 
         public void SetPaths()
         {
-            textboxPictureFolder.Text = core.config.Data.Folders.PictureFolderPath;
-            textboxNewPictureFolder.Text = core.config.Data.Folders.NewPictureFolderPath;
+            //textboxPictureFolder.Text = core.config.Data.Folders.PictureFolderPath;
+            //textboxNewPictureFolder.Text = core.config.Data.Folders.NewPictureFolderPath;
         }
 
         public void CountFiles()

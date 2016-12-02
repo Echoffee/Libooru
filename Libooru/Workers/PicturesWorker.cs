@@ -59,7 +59,14 @@ namespace Libooru.Workers
             return result;
         }
 
-        public byte[] GetThumbnail(string file, string path = "")
+        public byte[] GetThumbnail(int fileId, string path = "")
+        {
+            var c = pictureCollection.Find(x => x.Id.Equals(fileId));
+            var result = c.First().Thumbnail;
+            return result;
+        }
+
+        /*public byte[] GetThumbnailOld(string file, string path = "")
         {
             var dInfo = new DirectoryInfo(thumbnailsFolderPath);
             if (File.Exists(thumbnailsFolderPath + "/" + file))
@@ -71,7 +78,7 @@ namespace Libooru.Workers
                 GenerateThumbnail(file, core.config.Data.Folders.PictureFolderPath + "/" + file);
                 return File.ReadAllBytes(thumbnailsFolderPath + "/" + file);
             }
-        }
+        }*/
 
         public void InsertNewPicture(Picture p)
         {
