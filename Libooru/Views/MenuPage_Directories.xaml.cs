@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Libooru.Links;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Collections.ObjectModel;
+using Libooru.Models;
 
 namespace Libooru.Views
 {
@@ -24,9 +26,12 @@ namespace Libooru.Views
     {
         public Core core { get; set; }
 
+        public ObservableCollection<Folder> listFolders { get; set; }
+
         public MenuPage_Directories()
         {
             InitializeComponent();
+            this.listFolders = new ObservableCollection<Folder>();
             
         }
 
@@ -61,6 +66,16 @@ namespace Libooru.Views
             core.SetStatus("");
         }
 
+        private void GetFolders()
+        {
+            listFolders = new ObservableCollection<Folder>();
+            var result = core.foldersWorker.GetFolders();
+            foreach (var item in result)
+            {
+                listFolders.Add(item);    
+            }
+            this.mainlb.DataContext = this;
+        }
         /*public void ChooseDirectoryOpt1(object sender, RoutedEventArgs e)
         {
             ChooseDirectory(1);
@@ -103,12 +118,13 @@ namespace Libooru.Views
 
         public void UpdateView()
         {
-            CountFiles();
+            //CountFiles();
             SetPaths();
         }
 
         public void SetPaths()
         {
+            GetFolders();
             //textboxPictureFolder.Text = core.config.Data.Folders.PictureFolderPath;
             //textboxNewPictureFolder.Text = core.config.Data.Folders.NewPictureFolderPath;
         }

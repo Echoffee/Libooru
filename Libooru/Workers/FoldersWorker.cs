@@ -50,6 +50,11 @@ namespace Libooru.Workers
             this.list = new List<string>();
         }
 
+        public List<Folder> GetFolders()
+        {
+            return FolderCollection.Find(Query.All(Query.Descending)).ToList();
+        }
+
         public bool ScanForNewPictures()
         {
             var result = false;

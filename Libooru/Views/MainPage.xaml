@@ -64,9 +64,9 @@
             </Setter>
         </Style>
             <DataTemplate DataType="{x:Type local:Pic}">
-                <StackPanel>
+                <StackPanel Orientation="Vertical">
                 <Image Source="{Binding Path=Picture}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    
+                <TextBlock Text="{Binding Title}"/>
             </StackPanel>
             </DataTemplate>
     </Page.Resources>

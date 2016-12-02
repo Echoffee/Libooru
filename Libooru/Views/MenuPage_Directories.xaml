@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Libooru.Views"
+      xmlns:models="clr-namespace:Libooru.Models"
       mc:Ignorable="d" 
       d:DesignHeight="730" d:DesignWidth="995"
       Title="MenuPage_Directories">
@@ -63,6 +64,12 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <DataTemplate DataType="{x:Type models:Folder}">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding Name}" TextAlignment="Left" HorizontalAlignment="Stretch" FontWeight="DemiBold"/>
+                <TextBlock Text="{Binding Path}" TextAlignment="Right" HorizontalAlignment="Stretch" FontStyle="Italic"/>
+            </StackPanel>
+        </DataTemplate>
     </Page.Resources>
     <Grid Background="#FF2D2D30">
         <Button x:Name="menuButton" Content="Back" Margin="5,0,0,30" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75" ForceCursor="True" Click="goToMain" IsCancel="True"/>
@@ -75,12 +82,31 @@
         <Button x:Name="buttonTags" Content="Tags" Margin="5,60,0,0" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" ForceCursor="True" />
         <Button x:Name="buttonExternalTools" Content="External Tools" Margin="5,85,0,0" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" Click="goToExternals" ForceCursor="True"/>
         <Grid Margin="190,10,10,55">
-            <Label x:Name="label1" Content="Picture folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White"/>
-            <TextBox x:Name="textboxPictureFolder" Height="20" Margin="130,14,45,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Background="#FF1B1B1C" Foreground="White" Focusable="False"/>
-            <Button x:Name="browseFolderOpt1" Content="..." Margin="0,14,10,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" />
-            <Label x:Name="label2" Content="New pictures folder" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Foreground="White"/>
-            <TextBox x:Name="textboxNewPictureFolder" Height="20" Margin="130,50,45,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Background="#FF1B1B1C" Foreground="White" Focusable="False"/>
-            <Button x:Name="browseFolderOpt2" Content="..." Margin="0,50,10,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" />
+            <Label x:Name="label1" Content="Picture folders" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White"/>
+            <Label x:Name="label1_Copy" Content="Folder Name" Margin="10,365,0,0" VerticalAlignment="Top" Foreground="White" HorizontalAlignment="Left"/>
+            <Label x:Name="label1_Copy1" Content="Folder Path" HorizontalAlignment="Left" Margin="10,396,0,0" VerticalAlignment="Top" Foreground="White"/>
+            <TextBox x:Name="textboxFolderName" Height="20" Margin="93,369,82,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Background="#FF1B1B1C" Foreground="White" Focusable="False"/>
+            <TextBox x:Name="textboxFolderPath" Height="20" Margin="93,400,82,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Background="#FF1B1B1C" Foreground="White" Focusable="False"/>
+            <Button x:Name="menuButton_Copy" Content="Auto" Margin="0,369,10,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Click="goToMain" IsCancel="True" HorizontalAlignment="Right" Width="67" Height="20" VerticalAlignment="Top"/>
+            <Button x:Name="menuButton_Copy1" Content="..." Margin="0,399,10,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Click="goToMain" IsCancel="True" HorizontalAlignment="Right" Width="67" Height="20" VerticalAlignment="Top"/>
+            <Button x:Name="menuButton_addedit" Content="Add" Margin="0,435,10,210" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Click="goToMain" IsCancel="True" HorizontalAlignment="Right" Width="110"/>
+            <Button x:Name="menuButton_Copy3" Content="Remove" Margin="0,435,125,210" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Click="goToMain" IsCancel="True" HorizontalAlignment="Right" Width="110"/>
+            <ListBox x:Name="mainlb" ItemsSource="{Binding Path=listFolders}" Background="{x:Null}"  Margin="10,41,10,301"  >
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="1" ScrollViewer.CanContentScroll="False" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Height" Value="auto"/>
+                        <Setter Property="Width" Value="auto"/>
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                        <Setter Property="VerticalAlignment" Value="Top" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
         </Grid>
         <Button x:Name="menuApply" Content="Apply" Margin="0,0,10,30" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Bottom" ForceCursor="True" Click="ApplyChanges" HorizontalAlignment="Right" Width="75"/>
 

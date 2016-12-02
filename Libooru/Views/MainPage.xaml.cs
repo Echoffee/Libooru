@@ -48,6 +48,7 @@ namespace Libooru.Views
                 {
                     var p = new Pic();
                     p.Picture = item.Thumbnail;
+                    p.Title = "text";
                     listPic.Add(p);
                 }
                 this.picGrid.DataContext = this;
