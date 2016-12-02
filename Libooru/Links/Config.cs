@@ -35,6 +35,7 @@ namespace Libooru.Links
                 this.Data = new ConfigDataSet();
                 using (var w = new StreamWriter(filePath))
                     w.Write(JsonConvert.SerializeObject(this.Data, Formatting.Indented));
+                core.FirstLaunch();
             }else{
             var f = File.OpenRead(filePath);
             string s;

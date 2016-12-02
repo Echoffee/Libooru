@@ -27,6 +27,8 @@ namespace Libooru.Models
 
         public int Height { get; set; }
 
+        public long Size { get; set; }
+
         public string Source { get; set; }
 
         public bool? HighDefinition { get; set; }

@@ -32,7 +32,7 @@ namespace Libooru.Workers
             return result;
         }
 
-        public byte[] GenerateThumbnail(string file, string path, int resolution = 150)
+        public byte[] GenerateThumbnail(string path, int resolution = 150)
         {
             d.Bitmap img = new d.Bitmap(path);
             d.Image.GetThumbnailImageAbort abort = new d.Image.GetThumbnailImageAbort(ThumbnailCallback);
@@ -57,6 +57,21 @@ namespace Libooru.Workers
             var r = pictureCollection.Find(x => x.Directory.Equals(path));
             result.Pictures = r.ToList();
             return result;
+        }
+
+        public void HandleNewPictures()
+        {
+            var p = pictureCollection.Find(x => x.IsNew).ToList();
+            foreach (var picture in p)
+            {
+                picture.Thumbnail = GenerateThumbnail(picture.Path);
+                d.Bitmap img = new d.Bitmap(picture.Path);
+                picture.Width = img.Width;
+                picture.Height = img.Height;
+                picture.Size = (new FileInfo(picture.Path)).Length;
+                picture.IsNew = false;
+                pictureCollection.Update(picture);
+            }
         }
 
         public byte[] GetThumbnail(int fileId, string path = "")

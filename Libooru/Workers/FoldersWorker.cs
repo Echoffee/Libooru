@@ -50,16 +50,18 @@ namespace Libooru.Workers
             this.list = new List<string>();
         }
 
-        public void ScanForNewPictures()
+        public bool ScanForNewPictures()
         {
-            var folderList = FolderCollection.Find(Query.All(Query.Descending));
+            var result = false;
+            var folderList = FolderCollection.Find(Query.All(Query.Descending)).ToList();
             foreach (var folderItem in folderList)
             {
                 var folder = new DirectoryInfo(folderItem.Path);
-                if (folder.GetFiles().Length != folderItem.FileCount)
+                if (folder.GetFiles().Where(x => pictureFileExtensions.Contains(x.Extension)).ToArray().Length != folderItem.FileCount)
                 {
+                    result = true;
                     var fileItems = core.picturesWroker.GetPicturesInFolder(folderItem.Path).Pictures;
-                    var files = folder.GetFiles();
+                    var files = folder.GetFiles().Where(x => pictureFileExtensions.Contains(x.Extension)).ToList();
                     var newPictures = new List<Picture>();
                     var md5s = new Dictionary<string, FileInfo>();
                     foreach (var file in files) //TODO MT
@@ -90,6 +92,8 @@ namespace Libooru.Workers
                     FolderCollection.Update(folderItem);
                 }
             }
+
+            return result;
         }
 
         /*public void scanForPicturesOld()

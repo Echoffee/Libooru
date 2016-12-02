@@ -34,29 +34,39 @@ namespace Libooru.Links
             var documentsPaths = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             var path = documentsPaths + @"/Libooru";
 
-            this.config = new Config(this);
-            config.AppFolderPath = path;
-            config.GetConfig();
-
             foldersWorker = new FoldersWorker(this);
-
             tagsWorker = new TagsWorker(this);
-
             picturesWroker = new PicturesWorker(this);
-
             taggerWorker = new TaggerWorker(this);
-
             Database = new LiteDatabase(path + @"/data.db");
             tagsWorker.tagCollection = Database.GetCollection<Tag>("tags");
             picturesWroker.pictureCollection = Database.GetCollection<Picture>("pictures");
             foldersWorker.FolderCollection = Database.GetCollection<Folder>("folders");
+
+            this.config = new Config(this);
+            config.AppFolderPath = path;
+            config.GetConfig();
+
+
+
+            Update();
+        }
+
+        public void FirstLaunch()
+        {
+            var f = new Folder();
+            f.Name = "Default";
+            f.Path = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            f.FileCount = 0;
+            foldersWorker.FolderCollection.Insert(f);
         }
 
         public void Update()
         {
-            foldersWorker.ScanForNewPictures();
+            if (foldersWorker.ScanForNewPictures())
+                picturesWroker.HandleNewPictures();
             //foldersWorker.scanForPictures();
-            switcher.UpdateAllViews();
+            //switcher.UpdateAllViews();
         }
 
         public void SetStatus(string status)
