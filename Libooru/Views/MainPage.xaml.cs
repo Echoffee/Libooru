@@ -35,22 +35,24 @@ namespace Libooru.Views
 
         public void UpdateView()
         {
-            //RefreshList();
-            CountFiles();
+            RefreshList();
+            //CountFiles();
         }
 
-        /*private void RefreshList(int index = 0, int limit = 5)
+        private void RefreshList(int index = 0, int limit = 5)
         {
             if (index >= listPic.Count)
             {
-                var result = core.foldersWorker.getPictureFiles(index, limit);
-                foreach (var item in result.list)
+                var result = core.picturesWroker.RetrievePictures(index, limit);
+                foreach (var item in result.Pictures)
                 {
-                    listPic.Add(item);
+                    var p = new Pic();
+                    p.Picture = item.Thumbnail;
+                    listPic.Add(p);
                 }
                 this.picGrid.DataContext = this;
             }
-        }*/
+        }
 
         public void CountFiles()
         {

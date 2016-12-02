@@ -23,12 +23,14 @@ namespace Libooru.Workers
             this.core = core;
         }
 
-        public PictureQueryResult RetrievePictures(int offset = 0, int count = 5)
+        public PictureQueryResult RetrievePictures(int offset = 0, int count = 5, IList<Tag> tags = null)
         {
             var result = new PictureQueryResult();
             pictureCollection.EnsureIndex(x => x.Date);
-            var r = pictureCollection.Find(Query.All(Query.Descending), offset, count);
-            result.Pictures = r.ToList();
+            var r = new List<Picture>();
+            if (tags == null)
+                r = pictureCollection.Find(Query.All(Query.Descending), offset, count).ToList();
+            result.Pictures = r;
             return result;
         }
 

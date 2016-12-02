@@ -46,10 +46,6 @@ namespace Libooru.Links
             this.config = new Config(this);
             config.AppFolderPath = path;
             config.GetConfig();
-
-
-
-            Update();
         }
 
         public void FirstLaunch()
@@ -65,8 +61,7 @@ namespace Libooru.Links
         {
             if (foldersWorker.ScanForNewPictures())
                 picturesWroker.HandleNewPictures();
-            //foldersWorker.scanForPictures();
-            //switcher.UpdateAllViews();
+            switcher.UpdateAllViews();
         }
 
         public void SetStatus(string status)
