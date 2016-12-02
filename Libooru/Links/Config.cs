@@ -30,7 +30,12 @@ namespace Libooru.Links
 
             var path = AppFolderPath;
             var filePath = path + @"/config.json";
-
+            if (!File.Exists(filePath))
+            {
+                this.Data = new ConfigDataSet();
+                using (var w = new StreamWriter(filePath))
+                    w.Write(JsonConvert.SerializeObject(this.Data, Formatting.Indented));
+            }else{
             var f = File.OpenRead(filePath);
             string s;
             using (StreamReader r = new StreamReader(f))
@@ -38,6 +43,7 @@ namespace Libooru.Links
                 s = r.ReadToEnd();
             }
             this.Data = JsonConvert.DeserializeObject<ConfigDataSet>(s);
+            }
         }
 
         public List<string> GetPictures(int index = 0, int count = 20)
