@@ -25,6 +25,8 @@ namespace Libooru.Views
 
         public ObservableCollection<Pic> listPic { get; set; }
 
+        private bool searchBarClearOnFocus = true;
+
         public MainPage()
         {
             InitializeComponent();
@@ -65,13 +67,20 @@ namespace Libooru.Views
 
         private void searchBar_GotFocus(object sender, RoutedEventArgs e)
         {
-            this.searchBar.Text = "";
+            if (searchBarClearOnFocus)
+            {
+                searchBarClearOnFocus = false;
+                this.searchBar.Text = "";
+            }
         }
 
         private void searchBar_LostFocus(object sender, RoutedEventArgs e)
         {
             if (this.searchBar.Text.Equals(""))
+            {
+                searchBarClearOnFocus = true;
                 this.searchBar.Text = "";
+            }
         }
 
         private void menuButton_Click(object sender, RoutedEventArgs e)

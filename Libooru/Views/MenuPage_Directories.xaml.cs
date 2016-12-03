@@ -28,6 +28,8 @@ namespace Libooru.Views
 
         public ObservableCollection<Folder> listFolders { get; set; }
 
+        private bool folderNameBarClearOnFocus = true;
+
         public MenuPage_Directories()
         {
             InitializeComponent();
@@ -101,6 +103,24 @@ namespace Libooru.Views
             dialog.Title = title;
             CommonFileDialogResult result = dialog.ShowDialog();
             textboxFolderPath.Text = dialog.FileName;
+        }
+
+        private void Bar_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (folderNameBarClearOnFocus)
+            {
+                this.textboxFolderName.Text = "";
+                folderNameBarClearOnFocus = false;
+            }
+        }
+
+        private void Bar_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (this.textboxFolderName.Text.Equals(""))
+            {
+                this.textboxFolderName.Text = "Enter folder name";
+                folderNameBarClearOnFocus = true;
+            }
         }
 
         public void UpdateView()

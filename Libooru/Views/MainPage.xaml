@@ -72,7 +72,7 @@
     </Page.Resources>
 
     <Grid Background="#FF2D2D30" Margin="0,0,-0,-0">
-        <TextBox x:Name="searchBar" Height="20" Margin="10,10,10,0" TextWrapping="Wrap" Text="Search..." VerticalAlignment="Top" Background="#FF1B1B1C" Foreground="White" GotFocus="searchBar_GotFocus" LostFocus="searchBar_LostFocus"/>
+        <TextBox x:Name="searchBar" Height="20" Margin="5,5,5,0" TextWrapping="Wrap" Text="Search..." VerticalAlignment="Top" Background="#FF1B1B1C" Foreground="White" GotFocus="searchBar_GotFocus" LostFocus="searchBar_LostFocus"/>
         <Button x:Name="menuButton" Content="Menu" Margin="5,0,0,30" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75" ForceCursor="True" Click="menuButton_Click"/>
         <Grid Background="#FF007ACC" Height="25" VerticalAlignment="Bottom">
             <TextBlock x:Name="textStatus" HorizontalAlignment="Left" Margin="5,5,0,5" TextWrapping="Wrap" Text="Status..." FontSize="11" Foreground="White" Width="155"/>
