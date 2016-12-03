@@ -61,6 +61,7 @@ namespace Libooru.Views
             //core.config.Data.Folders.PictureFolderPath = textboxPictureFolder.Text;
             //core.config.Data.Folders.NewPictureFolderPath = textboxNewPictureFolder.Text;
             core.config.ApplyChanges();
+            core.Update();
             core.SetStatus("Done.");
             UpdateView();
             core.SetStatus("");

@@ -85,12 +85,12 @@ namespace Libooru.Views
             this.core = core;
         }
 
-        /*private void mainlb_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        private void mainlb_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             if (e.VerticalOffset + e.ViewportHeight >= e.ExtentHeight && e.VerticalOffset + e.ViewportHeight != 0)
             {
                 RefreshList(listPic.Count);
             }
-        }*/
+        }
     }
 }

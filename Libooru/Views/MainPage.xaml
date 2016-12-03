@@ -79,8 +79,8 @@
             <TextBlock x:Name="textInfos" Margin="0,5,5,5" TextWrapping="Wrap" Text="Infos..." FontSize="11" Foreground="White" TextAlignment="Right" HorizontalAlignment="Right" Width="155"/>
         </Grid>
         <Grid x:Name="picGrid" Margin="5,35,5,55">
-            <!--ScrollViewer.ScrollChanged="mainlb_ScrollChanged"-->
-            <ListBox Name="mainlb" ItemsSource="{Binding Path=listPic}" Background="{x:Null}"  >
+            <!---->
+            <ListBox Name="mainlb" ItemsSource="{Binding Path=listPic}" ScrollViewer.ScrollChanged="mainlb_ScrollChanged" Background="{x:Null}"  >
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Columns="5" ScrollViewer.CanContentScroll="False" />
