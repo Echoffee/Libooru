@@ -14,7 +14,7 @@ namespace Libooru.Models
 
         public string Path { get; set; }
 
-        public string Directory { get; set; }
+        public int FolderId { get; set; }
 
         //public List<Tag> Tags { get; set; }
         //Maybe not a good idea tbh

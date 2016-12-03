@@ -66,7 +66,7 @@ namespace Libooru.Workers
                 if (folder.GetFiles().Where(x => pictureFileExtensions.Contains(x.Extension)).ToArray().Length != folderItem.FileCount)
                 {
                     result = true;
-                    var fileItems = core.picturesWroker.GetPicturesInFolder(folderItem.Path).Pictures;
+                    var fileItems = core.picturesWroker.GetPicturesInFolder(folderItem.Id).Pictures;
                     var files = folder.GetFiles().Where(x => pictureFileExtensions.Contains(x.Extension)).ToList();
                     var newPictures = new List<Picture>();
                     var md5s = new Dictionary<string, FileInfo>();
@@ -87,7 +87,7 @@ namespace Libooru.Workers
                     {
                         var p = new Picture();
                         p.Date = DateTime.UtcNow;
-                        p.Directory = folder.FullName;
+                        p.FolderId = folderItem.Id;
                         p.Md5 = file.Key;
                         p.Path = file.Value.FullName;
                         p.IsNew = true;
@@ -110,6 +110,22 @@ namespace Libooru.Workers
             o.FileCount = 0;
             FolderCollection.Insert(o);
         }
+
+        public bool RemoveFolder(int Id)
+        {
+            var result = false;
+
+            if (FolderCollection.Find(x => x.Id == Id).ToList().Count == 1)
+            {
+                FolderCollection.Delete(x => x.Id == Id);
+                result = true;
+                core.picturesWroker.RemovePicturesFromFolder(Id);
+            }
+
+            return result;
+        }
+
+        
 
         /*public void scanForPicturesOld()
         {

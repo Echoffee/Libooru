@@ -68,27 +68,26 @@ namespace Libooru.Views
 
         private void GetFolders()
         {
-            listFolders = new ObservableCollection<Folder>();
+            listFolders.Clear();
             var result = core.foldersWorker.GetFolders();
             foreach (var item in result)
             {
-                listFolders.Add(item);    
+                    listFolders.Add(item);
             }
             this.mainlb.DataContext = this;
+            mainlb.Items.Refresh();
         }
-        /*public void ChooseDirectoryOpt1(object sender, RoutedEventArgs e)
-        {
-            ChooseDirectory(1);
-        }
-
-        public void ChooseDirectoryOpt2(object sender, RoutedEventArgs e)
-        {
-            ChooseDirectory(2);
-        }*/
 
         public void AddFolder(object sender, RoutedEventArgs e)
         {
             core.foldersWorker.AddNewFolder(textboxFolderName.Text, textboxFolderPath.Text);
+            GetFolders();
+        }
+
+        private void RemoveFolder(object sender, RoutedEventArgs e)
+        {
+            var item = (Folder) mainlb.SelectedItem;
+            core.foldersWorker.RemoveFolder(item.Id);
             GetFolders();
         }
 

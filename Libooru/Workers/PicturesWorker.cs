@@ -52,11 +52,11 @@ namespace Libooru.Workers
             }
         }
 
-        public PictureQueryResult GetPicturesInFolder(string path)
+        public PictureQueryResult GetPicturesInFolder(int id)
         {
             var result = new PictureQueryResult();
             pictureCollection.EnsureIndex(x => x.Path);
-            var r = pictureCollection.Find(x => x.Directory.Equals(path));
+            var r = pictureCollection.Find(x => x.FolderId.Equals(id));
             result.Pictures = r.ToList();
             return result;
         }
@@ -108,6 +108,11 @@ namespace Libooru.Workers
         public bool ThumbnailCallback()
         {
             return false;
+        }
+
+        internal void RemovePicturesFromFolder(int id)
+        {
+            pictureCollection.Delete(x => x.FolderId == id);
         }
     }
 }
