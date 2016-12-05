@@ -80,7 +80,7 @@
         </Grid>
         <Grid x:Name="picGrid" Margin="5,35,5,55">
             <!---->
-            <ListBox Name="mainlb" ItemsSource="{Binding Path=listPic}" ScrollViewer.ScrollChanged="mainlb_ScrollChanged" Background="{x:Null}"  >
+            <ListBox Name="mainlb" ItemsSource="{Binding Path=listPic}" ScrollViewer.ScrollChanged="mainlb_ScrollChanged" Background="{x:Null}" MouseDoubleClick="mainlb_MouseDoubleClick" >
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Columns="5" ScrollViewer.CanContentScroll="False" />

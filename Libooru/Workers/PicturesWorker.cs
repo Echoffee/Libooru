@@ -61,6 +61,13 @@ namespace Libooru.Workers
             return result;
         }
 
+        public Picture GetPicture(int id)
+        {
+            pictureCollection.EnsureIndex(x => x.Path);
+            var r = pictureCollection.Find(x => x.Id.Equals(id));
+            return r.ToList().First();
+        }
+
         public void HandleNewPictures()
         {
             pictureCollection.EnsureIndex("IsNew");

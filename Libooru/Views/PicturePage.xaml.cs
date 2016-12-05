@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Libooru.Links;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,38 @@ namespace Libooru.Views
     /// <summary>
     /// Interaction logic for PicturePage.xaml
     /// </summary>
-    public partial class PicturePage : Page
+    public partial class PicturePage : Page, ISwitchable
     {
+
+        public Core core { get; set; }
+
+        public int DisplayedId { get; set; }
+
         public PicturePage()
         {
             InitializeComponent();
+        }
+
+        public void UtilizeState(Core core)
+        {
+            this.core = core;
+        }
+
+        public void UpdateView()
+        {
+
+        }
+
+        public void LoadPicture(int id)
+        {
+            var p = core.picturesWroker.GetPicture(id);
+            var b = new BitmapImage();
+            b.BeginInit();
+            b.UriSource = new Uri(p.Path);
+            b.EndInit();
+
+            this.image.Source = b;
+            
         }
     }
 }

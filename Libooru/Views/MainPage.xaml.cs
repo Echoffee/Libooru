@@ -51,6 +51,7 @@ namespace Libooru.Views
                     var p = new Pic();
                     p.Picture = item.Thumbnail;
                     p.Title = "text";
+                    p.Id = item.Id;
                     listPic.Add(p);
                 }
                 this.picGrid.DataContext = this;
@@ -99,6 +100,16 @@ namespace Libooru.Views
             if (e.VerticalOffset + e.ViewportHeight >= e.ExtentHeight && e.VerticalOffset + e.ViewportHeight != 0)
             {
                 RefreshList(listPic.Count);
+            }
+        }
+
+        private void mainlb_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var item = (Pic)mainlb.SelectedItem;
+            if (item != null)
+            {
+                core.SetPicture(item.Id);
+                core.switcher.GoToPicture();
             }
         }
     }

@@ -32,6 +32,8 @@ namespace Libooru
 
         private Views.MenuPage_Externals menuPage_Externals { get; set; }
 
+        private Views.PicturePage picturePage { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -42,11 +44,13 @@ namespace Libooru
             menuPage = new Views.MenuPage();
             menuPage_Directories = new MenuPage_Directories();
             menuPage_Externals = new MenuPage_Externals();
+            picturePage = new PicturePage();
 
             mainPage.core = core;
             menuPage.core = core;
             menuPage_Directories.core = core;
             menuPage_Externals.core = core;
+            picturePage.core = core;
 
             core.Initialize();
             Switcher.Switch(mainPage);
@@ -77,6 +81,11 @@ namespace Libooru
             menuPage_Externals.UpdateView();
         }
 
+        internal void SetPicture(int id)
+        {
+            picturePage.LoadPicture(id);
+        }
+
         public void GoToMain()
         {
             Switcher.Switch(mainPage);
@@ -93,7 +102,12 @@ namespace Libooru
         {
             Switcher.Switch(menuPage_Directories);
             menuPage_Directories.UpdateView();
+        }
 
+        public void GoToPicture()
+        {
+            Switcher.Switch(picturePage);
+            picturePage.UpdateView();
         }
 
         public void Navigate(UserControl nextPage)

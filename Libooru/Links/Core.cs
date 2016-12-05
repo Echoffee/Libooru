@@ -69,6 +69,11 @@ namespace Libooru.Links
             switcher.SetAllViewsStatus(status);
         }
 
+        public void SetPicture(int id)
+        {
+            switcher.SetPicture(id);
+        }
+
         internal void Initialize()
         {
             config.SetLibooruEnv();
