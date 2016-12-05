@@ -115,6 +115,7 @@
     <Compile Include="Links\Core.cs" />
     <Compile Include="Models\Folder.cs" />
     <Compile Include="Models\Picture.cs" />
+    <Compile Include="Models\Source.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Queries\PictureQueryResult.cs" />
     <Compile Include="Queries\Query.cs" />

@@ -14,6 +14,8 @@ namespace Libooru.Models
 
         public TagType Type { get; set; }
 
+        public IList<int> SourceIDs { get; set; }
+
         public IList<string> Synonyms { get; set; }
 
         public IList<int> PictureIDs { get; set; }

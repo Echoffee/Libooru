@@ -29,7 +29,7 @@ namespace Libooru.Models
 
         public long Size { get; set; }
 
-        public string Source { get; set; }
+        public int SourceId { get; set; }
 
         public bool? HighDefinition { get; set; }
 

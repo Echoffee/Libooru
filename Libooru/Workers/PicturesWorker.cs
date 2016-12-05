@@ -18,6 +18,8 @@ namespace Libooru.Workers
 
         public LiteCollection<Picture> pictureCollection { get; internal set; }
 
+        public LiteCollection<Source> sourceCollection { get; internal set; }
+
         public PicturesWorker(Core core)
         {
             this.core = core;

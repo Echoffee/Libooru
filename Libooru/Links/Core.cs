@@ -41,7 +41,9 @@ namespace Libooru.Links
             Database = new LiteDatabase(path + @"/data.db");
             tagsWorker.tagCollection = Database.GetCollection<Tag>("tags");
             picturesWroker.pictureCollection = Database.GetCollection<Picture>("pictures");
+            picturesWroker.sourceCollection = Database.GetCollection<Source>("sources");
             foldersWorker.FolderCollection = Database.GetCollection<Folder>("folders");
+
 
             this.config = new Config(this);
             config.AppFolderPath = path;
