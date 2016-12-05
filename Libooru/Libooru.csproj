@@ -132,6 +132,9 @@
       <DependentUpon>MenuPage_Externals.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pic.cs" />
+    <Compile Include="Views\PicturePage.xaml.cs">
+      <DependentUpon>PicturePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Workers\FoldersWorker.cs" />
     <Compile Include="Workers\Iqdb\IqdbMatch.cs" />
     <Compile Include="Workers\Iqdb\IqdbQueryResult.cs" />
@@ -166,6 +169,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MenuPage_Externals.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PicturePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
