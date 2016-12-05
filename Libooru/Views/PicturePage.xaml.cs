@@ -41,6 +41,11 @@ namespace Libooru.Views
 
         }
 
+        private void goToMain(object sender, RoutedEventArgs e)
+        {
+            core.switcher.GoToMain();
+        }
+
         public void LoadPicture(int id)
         {
             var p = core.picturesWroker.GetPicture(id);

@@ -91,7 +91,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 <Label x:Name="label_artist" Content="infinote" HorizontalAlignment="Left" Margin="62,5,0,0" VerticalAlignment="Top" Foreground="White"/>
                 <Label x:Name="label_source" Content="Danbooru" HorizontalAlignment="Left" Margin="62,31,0,0" VerticalAlignment="Top" Foreground="White"/>
                 <Label x:Name="label_hd" Content="Yes (1000x1439 1.59MB)" HorizontalAlignment="Left" Margin="62,57,0,0" VerticalAlignment="Top" Foreground="White"/>
-                <Button x:Name="menuButton" Content="Back" Margin="5,0,0,10" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75" ForceCursor="True" IsCancel="True"/>
+                <Button x:Name="menuButton" Content="Back" Margin="5,0,0,10" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75" ForceCursor="True" IsCancel="True" Click="goToMain"/>
             </Grid>
             <!---->
         </Grid>
