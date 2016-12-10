@@ -76,7 +76,8 @@ namespace Libooru.Views
                 TagList.Add(item);
             }
 
-            this.DataContext = TagList;
+            this.mainlb.DataContext = this;
+            mainlb.Items.Refresh();
         }
 
     }
