@@ -21,5 +21,7 @@ namespace Libooru.Workers.Iqdb
         public int height { get; set; }
 
         public float size { get; set; }
+
+        public string id { get; set; }
     }
 }

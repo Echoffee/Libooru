@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Libooru.Links.ConfigData;
 using LiteDB;
 using Libooru.Models;
+using System.Linq.Expressions;
 
 namespace Libooru.Workers
 {
@@ -20,7 +21,8 @@ namespace Libooru.Workers
         public string TagsFolderPath { get; set; }
 
         public long tagNumber { get; set; }
-        public LiteCollection<Tag> tagCollection { get; internal set; }
+
+        public LiteCollection<PictureTag> tagCollection { get; internal set; }
 
         private string[] tagFileExtensions = { ".tag" };
 
@@ -52,7 +54,42 @@ namespace Libooru.Workers
             return result;
         }
 
-        public SearchResults SearchTags(string tags)
+        internal void AddTag(string item, int id_pic)
+        {
+            var tagResults = tagCollection.Find(x => x.Name.Equals(item)).ToList();
+            PictureTag t;
+            if (tagResults.Count < 1)
+            {
+                t = new PictureTag();
+                t.Name = item;
+                t.PictureIDs = new List<int>();
+                tagCollection.Insert(t);
+            }
+            else
+                t = tagResults.First();
+
+            if (!t.PictureIDs.Contains(id_pic))
+                t.PictureIDs.Add(id_pic);
+
+            tagCollection.Update(t);
+        }
+
+        public IList<PictureTag> GetTagsForPicture(int id)
+        {
+            var result = tagCollection.FindAll();
+            var result2 = new List<PictureTag>();
+            foreach (var item in result)
+            {
+                if (item.PictureIDs.Contains(id))
+                    result2.Add(item);
+            }
+
+            return result2;
+        }
+
+
+
+        /*public SearchResults SearchTags(string tags)
         {
             var result = new SearchResults(tags);
             var query = tags.Split(' ');
@@ -91,6 +128,6 @@ namespace Libooru.Workers
             }
             result.results = l.Distinct().ToList();
             return result;
-        }
+        }*/
     }
 }

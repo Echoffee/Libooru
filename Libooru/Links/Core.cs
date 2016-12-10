@@ -39,7 +39,7 @@ namespace Libooru.Links
             picturesWroker = new PicturesWorker(this);
             taggerWorker = new TaggerWorker(this);
             Database = new LiteDatabase(path + @"/data.db");
-            tagsWorker.tagCollection = Database.GetCollection<Tag>("tags");
+            tagsWorker.tagCollection = Database.GetCollection<PictureTag>("tags");
             picturesWroker.pictureCollection = Database.GetCollection<Picture>("pictures");
             picturesWroker.sourceCollection = Database.GetCollection<Source>("sources");
             foldersWorker.FolderCollection = Database.GetCollection<Folder>("folders");

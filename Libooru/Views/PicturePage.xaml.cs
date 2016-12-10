@@ -1,6 +1,8 @@
 ﻿using Libooru.Links;
+using Libooru.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,9 +28,12 @@ namespace Libooru.Views
 
         public int DisplayedId { get; set; }
 
+        public ObservableCollection<PictureTag> TagList { get; set; }
+
         public PicturePage()
         {
             InitializeComponent();
+            this.TagList = new ObservableCollection<PictureTag>();
         }
 
         public void UtilizeState(Core core)
@@ -38,7 +43,7 @@ namespace Libooru.Views
 
         public void UpdateView()
         {
-
+            LoadPicture(DisplayedId);
         }
 
         private void goToMain(object sender, RoutedEventArgs e)
@@ -46,8 +51,16 @@ namespace Libooru.Views
             core.switcher.GoToMain();
         }
 
+        private void checkTags(object sender, RoutedEventArgs e)
+        {
+            core.taggerWorker.TagPicture(DisplayedId);
+            UpdateView();
+        }
+
+
         public void LoadPicture(int id)
         {
+            this.DisplayedId = id;
             var p = core.picturesWroker.GetPicture(id);
             var b = new BitmapImage();
             b.BeginInit();
@@ -55,7 +68,16 @@ namespace Libooru.Views
             b.EndInit();
 
             this.image.Source = b;
-            
+
+            TagList.Clear();
+            var t = core.tagsWorker.GetTagsForPicture(id);
+            foreach (var item in t)
+            {
+                TagList.Add(item);
+            }
+
+            this.DataContext = TagList;
         }
+
     }
 }

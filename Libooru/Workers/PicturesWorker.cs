@@ -25,7 +25,7 @@ namespace Libooru.Workers
             this.core = core;
         }
 
-        public PictureQueryResult RetrievePictures(int offset = 0, int count = 5, IList<Tag> tags = null)
+        public PictureQueryResult RetrievePictures(int offset = 0, int count = 5, IList<PictureTag> tags = null)
         {
             var result = new PictureQueryResult();
             pictureCollection.EnsureIndex(x => x.Date);

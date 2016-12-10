@@ -81,13 +81,13 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             <Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Center" Width="575"/>
             </Grid>
                 <Grid Height="165" VerticalAlignment="Bottom">
-                <ListBox x:Name="listBox" Margin="0,5,5,5" HorizontalAlignment="Right" Width="195" Background="#FF2D2D30" Foreground="White"/>
+                <ListBox x:Name="listBox" Margin="0,5,5,5" HorizontalAlignment="Right" Width="195" Background="#FF2D2D30" Foreground="White" />
                 <Label x:Name="label" Content="Artist :" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" Foreground="White"/>
                 <Label x:Name="label1" Content="Source :" HorizontalAlignment="Left" Margin="5,31,0,0" VerticalAlignment="Top" Foreground="White"/>
                 <Label x:Name="label2" Content="HD :" HorizontalAlignment="Left" Margin="5,57,0,0" VerticalAlignment="Top" Foreground="White"/>
-                <Button x:Name="picButton_checkHD" Content="Check HD version" Margin="0,85,205,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" IsCancel="True" HorizontalAlignment="Right" Width="110" Height="20" VerticalAlignment="Top"/>
-                <Button x:Name="picButton_checkHD_Copy1" Content="Visit artist website" Margin="0,135,205,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" IsCancel="True" HorizontalAlignment="Right" Width="110" Height="20" VerticalAlignment="Top"/>
-                <Button x:Name="picButton_checkHD_Copy2" Content="Check tags" Margin="0,110,205,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" IsCancel="True" HorizontalAlignment="Right" Width="110" Height="20" VerticalAlignment="Top"/>
+                <Button x:Name="picButton_checkHD" Content="Check HD version" Margin="0,85,205,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" HorizontalAlignment="Right" Width="110" Height="20" VerticalAlignment="Top"/>
+                <Button x:Name="picButton_checkHD_Copy1" Content="Visit artist website" Margin="0,135,205,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" HorizontalAlignment="Right" Width="110" Height="20" VerticalAlignment="Top"/>
+                <Button x:Name="picButton_checkHD_Copy2" Content="Check tags" Margin="0,110,205,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Click="checkTags" HorizontalAlignment="Right" Width="110" Height="20" VerticalAlignment="Top"/>
                 <Label x:Name="label_artist" Content="infinote" HorizontalAlignment="Left" Margin="62,5,0,0" VerticalAlignment="Top" Foreground="White"/>
                 <Label x:Name="label_source" Content="Danbooru" HorizontalAlignment="Left" Margin="62,31,0,0" VerticalAlignment="Top" Foreground="White"/>
                 <Label x:Name="label_hd" Content="Yes (1000x1439 1.59MB)" HorizontalAlignment="Left" Margin="62,57,0,0" VerticalAlignment="Top" Foreground="White"/>

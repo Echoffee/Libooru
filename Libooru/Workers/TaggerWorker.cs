@@ -27,15 +27,26 @@ namespace Libooru.Workers
         public PostSearchResult SearchForMd5(string path)
         {
             var client = new WebClient();
-            var r = client.DownloadData(CreateRequest(path));
+            var r = client.DownloadData(CreateMD5Request(path));
             var content = Encoding.UTF8.GetString(r);
             var l = JsonConvert.DeserializeObject<PostSearchResult[]>(content);
             return l.First();
         }
 
-        public string CreateRequest(string path)
+        public PostSearchResult Search(string id)
         {
-            var result = "https://danbooru.donmai.us/posts.json?tags=md5:" + GetMd5FromFile(path);
+            var client = new WebClient();
+            //var r = client.DownloadString(t + "?login=" + core.config.Data.Externals.Danbooru.Login + "&api_key=" + core.config.Data.Externals.Danbooru.ApiKey);
+            var r = client.DownloadString(CreatePostIdRequest(id));
+            //var content = Encoding.UTF8.GetString(r);
+            var l = JsonConvert.DeserializeObject<PostSearchResult>(r);
+            return l;
+        }
+
+        public string CreateMD5Request(string path)
+        {
+            //var result = "https://danbooru.donmai.us/posts.json?tags=md5:" + GetMd5FromFile(path);
+            var result = "https://danbooru.donmai.us/posts/" + path.Replace("https://danbooru.donmai.us/posts/", "");
             if (!string.IsNullOrEmpty(core.config.Data.Externals.Danbooru.ApiKey) && !string.IsNullOrEmpty(core.config.Data.Externals.Danbooru.Login))
             {
                 result += "&login=" + core.config.Data.Externals.Danbooru.Login + "&api_key=" + core.config.Data.Externals.Danbooru.ApiKey;
@@ -44,9 +55,33 @@ namespace Libooru.Workers
             return result;
         }
 
-        public void QueryDanbooruIQDB(string filePath)
+        public string CreatePostIdRequest(string id)
         {
-            var f = new ByteArrayContent(File.ReadAllBytes(filePath));
+            var result = "https://danbooru.donmai.us/posts/" + id + ".json";
+            if (!string.IsNullOrEmpty(core.config.Data.Externals.Danbooru.ApiKey) && !string.IsNullOrEmpty(core.config.Data.Externals.Danbooru.Login))
+            {
+                result += "?login=" + core.config.Data.Externals.Danbooru.Login + "&api_key=" + core.config.Data.Externals.Danbooru.ApiKey;
+            }
+
+            return result;
+        }
+
+        public void TagPicture(int id)
+        {
+            var r = QueryDanbooruIQDB(id);
+            r.Compute();
+            var pr = Search(r.BestMatch.id);
+            var tag_string = pr.tag_string.Split(' ');
+            foreach (var item in tag_string)
+            {
+                core.tagsWorker.AddTag(item, id);
+            }
+        }
+
+        public IqdbQueryResult QueryDanbooruIQDB(int id)
+        {
+            var p = core.picturesWroker.GetPicture(id);
+            var f = new ByteArrayContent(p.Thumbnail);
             using (var client = new HttpClient())
             using (var formData = new MultipartFormDataContent())
             {
@@ -54,11 +89,11 @@ namespace Libooru.Workers
                 var response = client.PostAsync("http://danbooru.iqdb.org/", formData).Result;
                 if (!response.IsSuccessStatusCode)
                 {
-                    return;
+                    return null;
                 }
                 var result = response.Content.ReadAsStringAsync().Result;
                 var queryresult = new IqdbQueryResult(result);
-                queryresult.Compute();
+                return queryresult;
             }
         }
 

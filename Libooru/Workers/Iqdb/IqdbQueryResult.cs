@@ -38,6 +38,7 @@ namespace Libooru.Workers.Iqdb
             BestMatch.width = int.Parse(size[0]);
             BestMatch.height = int.Parse(size[1]);
             BestMatch.accuracy = int.Parse(acc);
+            BestMatch.id = id;
         }
     }
 }

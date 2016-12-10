@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Libooru.Models
 {
-    public class Tag
+    public class PictureTag
     {
         public int Id { get; set; }
 
@@ -14,11 +14,11 @@ namespace Libooru.Models
 
         public TagType Type { get; set; }
 
-        public IList<int> SourceIDs { get; set; }
+        public List<int> SourceIDs { get; set; }
 
-        public IList<string> Synonyms { get; set; }
+        public List<string> Synonyms { get; set; }
 
-        public IList<int> PictureIDs { get; set; }
+        public List<int> PictureIDs { get; set; }
     }
 
     public enum TagType
