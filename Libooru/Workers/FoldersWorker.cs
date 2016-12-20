@@ -70,12 +70,12 @@ namespace Libooru.Workers
                     var files = folder.GetFiles().Where(x => pictureFileExtensions.Contains(x.Extension)).ToList();
                     var newPictures = new List<Picture>();
                     var md5s = new Dictionary<string, FileInfo>();
-                    foreach (var file in files) //TODO MT
+                    Parallel.ForEach(files, file =>
                     {
                         var md5 = core.taggerWorker.GetMd5FromFile(file.FullName);
                         if (!md5s.ContainsKey(md5))
                             md5s.Add(md5, file);
-                    }
+                    });
 
                     foreach (var file in fileItems)
                     {
@@ -83,7 +83,7 @@ namespace Libooru.Workers
                             md5s.Remove(file.Md5);
                     }
 
-                    foreach (var file in md5s) //TODO MT
+                    Parallel.ForEach(md5s, file => 
                     {
                         var p = new Picture();
                         p.Date = DateTime.UtcNow;
@@ -91,9 +91,9 @@ namespace Libooru.Workers
                         p.Md5 = file.Key;
                         p.Path = file.Value.FullName;
                         p.IsNew = true;
-
-                        core.picturesWroker.InsertNewPicture(p);
-                    }
+                        newPictures.Add(p);
+                    });
+                    core.picturesWroker.InsertNewPictures(newPictures);
                     folderItem.FileCount = folder.GetFiles().Length;
                     FolderCollection.Update(folderItem);
                 }

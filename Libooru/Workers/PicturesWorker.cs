@@ -114,6 +114,11 @@ namespace Libooru.Workers
             pictureCollection.Insert(p);
         }
 
+        public void InsertNewPictures(IList<Picture> p)
+        {
+            pictureCollection.Insert(p);
+        }
+
         public bool ThumbnailCallback()
         {
             return false;
