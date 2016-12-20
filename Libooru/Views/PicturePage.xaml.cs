@@ -51,9 +51,12 @@ namespace Libooru.Views
             core.switcher.GoToMain();
         }
 
-        private void checkTags(object sender, RoutedEventArgs e)
+        private async void checkTags(object sender, RoutedEventArgs e)
         {
-            core.taggerWorker.TagPicture(DisplayedId);
+            await Task.Run(() =>
+            {
+                core.taggerWorker.TagPicture(DisplayedId);
+            });
             UpdateView();
         }
 

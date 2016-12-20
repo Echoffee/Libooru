@@ -74,7 +74,7 @@ namespace Libooru.Workers
         {
             pictureCollection.EnsureIndex("IsNew");
             var p = pictureCollection.Find(x => x.IsNew).ToList();
-            foreach (var picture in p)
+            Parallel.ForEach(p, picture =>
             {
                 picture.Thumbnail = GenerateThumbnail(picture.Path);
                 using (d.Bitmap img = new d.Bitmap(picture.Path))
@@ -82,10 +82,10 @@ namespace Libooru.Workers
                     picture.Width = img.Width;
                     picture.Height = img.Height;
                 }
-                    picture.Size = (new FileInfo(picture.Path)).Length;
+                picture.Size = (new FileInfo(picture.Path)).Length;
                 picture.IsNew = false;
                 pictureCollection.Update(picture);
-            }
+            });
         }
 
         public byte[] GetThumbnail(int fileId, string path = "")
