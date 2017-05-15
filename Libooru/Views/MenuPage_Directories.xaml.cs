@@ -144,5 +144,10 @@ namespace Libooru.Views
                             + core.foldersWorker.newPictureNumber + " new" : "");
 
         }
-    }
+
+		private void scanOnStartCheckBox_Checked(object sender, RoutedEventArgs e)
+		{
+
+		}
+	}
 }

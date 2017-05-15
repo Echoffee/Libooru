@@ -64,6 +64,7 @@ namespace Libooru
             menuPage.textStatus.Text = status;
             menuPage_Directories.textStatus.Text = status;
             menuPage_Externals.textStatus.Text = status;
+            picturePage.textStatus.Text = status;
         }
 
         internal void UpdateAllViews()

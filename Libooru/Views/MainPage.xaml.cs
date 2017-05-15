@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Libooru.Links;
 using System.Collections.ObjectModel;
+using Libooru.Models;
 
 namespace Libooru.Views
 {
@@ -23,7 +24,7 @@ namespace Libooru.Views
     {
         public Core core { get; set; }
 
-        public ObservableCollection<Pic> listPic { get; set; }
+        public ObservableCollection<Picture> listPic { get; set; }
 
         private bool searchBarClearOnFocus = true;
 
@@ -31,9 +32,10 @@ namespace Libooru.Views
         {
             InitializeComponent();
             ThemeService.Current.ChangeTheme(Theme.Dark);
-            this.listPic = new ObservableCollection<Pic>();
-            
-        }
+			this.listPic = new ObservableCollection<Picture>();
+
+
+		}
 
         public void UpdateView()
         {
@@ -45,15 +47,11 @@ namespace Libooru.Views
         {
             if (index >= listPic.Count)
             {
+				//listPic.Clear();
                 var result = core.picturesWroker.RetrievePictures(index, limit);
-                foreach (var item in result.Pictures)
-                {
-                    var p = new Pic();
-                    p.Picture = item.Thumbnail;
-                    p.Title = "text";
-                    p.Id = item.Id;
-                    listPic.Add(p);
-                }
+				foreach (var item in result.Pictures)
+					this.listPic.Add(item);
+
                 this.picGrid.DataContext = this;
             }
         }
@@ -105,7 +103,7 @@ namespace Libooru.Views
 
         private void mainlb_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var item = (Pic)mainlb.SelectedItem;
+            var item = (Picture)mainlb.SelectedItem;
             if (item != null)
             {
                 core.SetPicture(item.Id);

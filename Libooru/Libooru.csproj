@@ -120,6 +120,7 @@
     <Compile Include="Queries\PictureQueryResult.cs" />
     <Compile Include="Queries\Query.cs" />
     <Compile Include="Switcher.cs" />
+    <Compile Include="Tools.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -132,7 +133,6 @@
     <Compile Include="Views\MenuPage_Externals.xaml.cs">
       <DependentUpon>MenuPage_Externals.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pic.cs" />
     <Compile Include="Views\PicturePage.xaml.cs">
       <DependentUpon>PicturePage.xaml</DependentUpon>
     </Compile>

@@ -61,8 +61,12 @@ namespace Libooru.Links
 
         public void Update()
         {
-            if (foldersWorker.ScanForNewPictures())
-                picturesWroker.HandleNewPictures();
+			/*if (foldersWorker.ScanForNewPictures())
+                picturesWroker.HandleNewPictures();*/
+			var modifiedFolders = foldersWorker.DoFullScan();
+			if (modifiedFolders.Count > 0)
+				foldersWorker.Scan(modifiedFolders);
+
             switcher.UpdateAllViews();
         }
 

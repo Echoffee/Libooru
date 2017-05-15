@@ -53,11 +53,14 @@ namespace Libooru.Views
 
         private async void checkTags(object sender, RoutedEventArgs e)
         {
+            core.SetStatus("Tag in progress...");
             await Task.Run(() =>
             {
                 core.taggerWorker.TagPicture(DisplayedId);
+				UpdateView();
+                core.SetStatus("Done.");
             });
-            UpdateView();
+            
         }
 
 

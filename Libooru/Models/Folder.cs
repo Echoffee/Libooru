@@ -15,5 +15,9 @@ namespace Libooru.Models
         public string Path { get; set; }
 
         public int FileCount { get; set; }
+
+		public bool ScanAtStart { get; set; }
+
+		public long Size { get; set; }
     }
 }

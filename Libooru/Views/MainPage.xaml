@@ -17,15 +17,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
-        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
-        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
-        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+
         <Style TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
@@ -63,12 +55,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-            <DataTemplate DataType="{x:Type local:Pic}">
-                <StackPanel Orientation="Vertical">
-                <Image Source="{Binding Path=Picture}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding Title}"/>
-            </StackPanel>
-            </DataTemplate>
+            
     </Page.Resources>
 
     <Grid Background="#FF2D2D30" Margin="0,0,-0,-0">
@@ -90,6 +77,8 @@
                     <Style TargetType="ListBoxItem">
                         <Setter Property="Foreground" Value="White" />
                         <Setter Property="HorizontalAlignment" Value="Center" />
+                        <Setter Property="VerticalAlignment" Value="Top" />
+                        <Setter Property="Height" Value="150" />
                     </Style>
                 </ListBox.ItemContainerStyle>
             </ListBox>

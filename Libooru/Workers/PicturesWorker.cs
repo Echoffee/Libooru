@@ -32,6 +32,7 @@ namespace Libooru.Workers
             var r = new List<Picture>();
             if (tags == null)
                 r = pictureCollection.Find(Query.All(Query.Descending), offset, count).ToList();
+
             result.Pictures = r;
             return result;
         }
@@ -74,7 +75,7 @@ namespace Libooru.Workers
         {
             pictureCollection.EnsureIndex("IsNew");
             var p = pictureCollection.Find(x => x.IsNew).ToList();
-            Parallel.ForEach(p, picture =>
+			foreach (var picture in p)
             {
                 picture.Thumbnail = GenerateThumbnail(picture.Path);
                 using (d.Bitmap img = new d.Bitmap(picture.Path))
@@ -85,7 +86,7 @@ namespace Libooru.Workers
                 picture.Size = (new FileInfo(picture.Path)).Length;
                 picture.IsNew = false;
                 pictureCollection.Update(picture);
-            });
+            }
         }
 
         public byte[] GetThumbnail(int fileId, string path = "")
@@ -114,7 +115,17 @@ namespace Libooru.Workers
             pictureCollection.Insert(p);
         }
 
-        public void InsertNewPictures(IList<Picture> p)
+		internal void UpdatePicture(Picture picture)
+		{
+			pictureCollection.Update(picture);
+		}
+
+		internal void DeletePicture(Picture oldPictureName)
+		{
+			pictureCollection.Delete(x => x.Id == oldPictureName.Id);
+		}
+
+		public void InsertNewPictures(IList<Picture> p)
         {
             pictureCollection.Insert(p);
         }

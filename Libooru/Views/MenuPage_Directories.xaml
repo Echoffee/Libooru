@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Libooru.Views"
-      xmlns:models="clr-namespace:Libooru.Models"
+
       mc:Ignorable="d" 
       d:DesignHeight="730" d:DesignWidth="995"
       Title="MenuPage_Directories">
@@ -18,15 +18,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
-        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#3F3F46"/>
-        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFFFFFFF"/>
-        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FFFFFFFF"/>
+
+        
+        <SolidColorBrush x:Key="CheckBox.Static.Glyph" Color="#FFFFFFFF" />
         <Style TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
@@ -64,12 +58,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <DataTemplate DataType="{x:Type models:Folder}">
-            <StackPanel Orientation="Vertical" >
-                <TextBlock Text="{Binding Name}" TextAlignment="Left" HorizontalAlignment="Stretch" FontWeight="DemiBold"/>
-                <TextBlock Text="{Binding Path}" TextAlignment="Right" HorizontalAlignment="Stretch" FontStyle="Italic"/>
-            </StackPanel>
-        </DataTemplate>
+        
     </Page.Resources>
     <Grid Background="#FF2D2D30">
         <Button x:Name="menuButton" Content="Back" Margin="5,0,0,30" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75" ForceCursor="True" Click="goToMain" IsCancel="True"/>
@@ -99,12 +88,14 @@
                 </ListView.ItemsPanel>
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
-                        <Setter Property="Height" Value="auto"/>
+                        <Setter Property="Height" Value="60"/>
                         <Setter Property="Foreground" Value="White" />
                         <Setter Property="HorizontalAlignment" Value="Stretch" />
+                        <Setter Property="VerticalAlignment" Value="Top"/>
                     </Style>
                 </ListBox.ItemContainerStyle>
             </ListView>
+            <CheckBox x:Name="scanOnStartCheckBox" Content="Scan on start" HorizontalAlignment="Left" Margin="93,435,0,0" VerticalAlignment="Top" Checked="scanOnStartCheckBox_Checked" Background="#FF1B1B1C" Foreground="White" IsChecked="True"/>
         </Grid>
         <Button x:Name="menuApply" Content="Apply" Margin="0,0,10,30" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Bottom" ForceCursor="True" Click="ApplyChanges" HorizontalAlignment="Right" Width="75"/>
 

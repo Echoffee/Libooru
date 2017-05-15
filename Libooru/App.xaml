@@ -2,8 +2,29 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Libooru"
+             xmlns:models="clr-namespace:Libooru.Models"
              StartupUri="PageSwitcher.xaml">
     <Application.Resources>
-         
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#3F3F46"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFFFFFFF"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FFFFFFFF"/>
+
+        <DataTemplate DataType="{x:Type models:Folder}">
+            <StackPanel Orientation="Vertical" >
+                <TextBlock Text="{Binding Name}" TextAlignment="Left" HorizontalAlignment="Stretch" FontWeight="DemiBold"/>
+                <TextBlock Text="{Binding Path}" TextAlignment="Right" HorizontalAlignment="Stretch" FontStyle="Italic"/>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type models:Picture}">
+            <StackPanel Orientation="Vertical">
+                <Image Source="{Binding Path=Thumbnail}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
+        </DataTemplate>
     </Application.Resources>
 </Application>
