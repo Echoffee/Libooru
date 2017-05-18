@@ -47,7 +47,6 @@ namespace Libooru.Views
         {
             if (index >= listPic.Count)
             {
-				//listPic.Clear();
                 var result = core.picturesWroker.RetrievePictures(index, limit);
 				foreach (var item in result.Pictures)
 					this.listPic.Add(item);
@@ -110,5 +109,10 @@ namespace Libooru.Views
                 core.switcher.GoToPicture();
             }
         }
-    }
+
+		private void scanButton_Click(object sender, RoutedEventArgs e)
+		{
+			core.HardUpdate();
+		}
+	}
 }

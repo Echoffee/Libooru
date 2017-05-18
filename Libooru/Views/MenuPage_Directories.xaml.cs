@@ -30,10 +30,14 @@ namespace Libooru.Views
 
         private bool folderNameBarClearOnFocus = true;
 
+		private ListBoxItem prevItem = null;
+
         public MenuPage_Directories()
         {
             InitializeComponent();
             this.listFolders = new ObservableCollection<Folder>();
+			this.menuButton_addedit.IsEnabled = false;
+			this.menuButton_remove.IsEnabled = false;
             
         }
 
@@ -63,7 +67,7 @@ namespace Libooru.Views
             //core.config.Data.Folders.PictureFolderPath = textboxPictureFolder.Text;
             //core.config.Data.Folders.NewPictureFolderPath = textboxNewPictureFolder.Text;
             core.config.ApplyChanges();
-            core.Update();
+            core.SoftUpdate();
             core.SetStatus("Done.");
             UpdateView();
             core.SetStatus("");
@@ -77,6 +81,7 @@ namespace Libooru.Views
             {
                     listFolders.Add(item);
             }
+
             this.mainlb.DataContext = this;
             mainlb.Items.Refresh();
         }
@@ -103,7 +108,12 @@ namespace Libooru.Views
             dialog.Title = title;
             CommonFileDialogResult result = dialog.ShowDialog();
             textboxFolderPath.Text = dialog.FileName;
-        }
+			if (textboxFolderPath.Equals("..."))
+				this.menuButton_addedit.IsEnabled = false;
+			else
+				this.menuButton_addedit.IsEnabled = true;
+
+		}
 
         private void Bar_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -119,8 +129,10 @@ namespace Libooru.Views
             if (this.textboxFolderName.Text.Equals(""))
             {
                 this.textboxFolderName.Text = "Enter folder name";
-                folderNameBarClearOnFocus = true;
-            }
+				this.menuButton_addedit.IsEnabled = false;
+				folderNameBarClearOnFocus = true;
+            }else
+				this.menuButton_addedit.IsEnabled = true;
         }
 
         public void UpdateView()
@@ -148,6 +160,20 @@ namespace Libooru.Views
 		private void scanOnStartCheckBox_Checked(object sender, RoutedEventArgs e)
 		{
 
+		}
+
+		private void mainlb_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+		{
+			if (prevItem != null)
+			{
+				var dt = prevItem.DataContext as Folder;
+			}
+
+			prevItem = ItemsControl.ContainerFromElement(this.mainlb, e.OriginalSource as DependencyObject) as ListBoxItem;
+			if (prevItem != null)
+			{
+				
+			}
 		}
 	}
 }

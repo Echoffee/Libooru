@@ -59,16 +59,24 @@ namespace Libooru.Links
             foldersWorker.FolderCollection.Insert(f);
         }
 
-        public void Update()
+        public void SoftUpdate()
         {
 			/*if (foldersWorker.ScanForNewPictures())
                 picturesWroker.HandleNewPictures();*/
-			var modifiedFolders = foldersWorker.DoFullScan();
-			if (modifiedFolders.Count > 0)
-				foldersWorker.Scan(modifiedFolders);
+			//var modifiedFolders = foldersWorker.DoFullScan();
+			var fastFolders = foldersWorker.FolderCollection.Find(x => x.ScanAtStart).ToList();
+			if (fastFolders.Count > 0)
+				foldersWorker.Scan(fastFolders);
 
             switcher.UpdateAllViews();
         }
+
+		public void HardUpdate()
+		{
+			var modifiedFolders = foldersWorker.DoFullScan();
+			if (modifiedFolders.Count > 0)
+				foldersWorker.Scan(modifiedFolders);
+		}
 
         public void SetStatus(string status)
         {
@@ -83,7 +91,7 @@ namespace Libooru.Links
         internal void Initialize()
         {
             config.SetLibooruEnv();
-            Update();
+            SoftUpdate();
             //taggerWorker.SearchForMd5(@"link");
         }
     }

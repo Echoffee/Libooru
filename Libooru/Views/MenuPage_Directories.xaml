@@ -79,11 +79,11 @@
             <!-- <Button x:Name="menuButton_Copy" Content="Auto" Margin="0,369,10,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Click="goToMain" IsCancel="True" HorizontalAlignment="Right" Width="67" Height="20" VerticalAlignment="Top"/> -->
             <Button x:Name="menuButton_Copy1" Content="..." Margin="0,399,10,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Click="ChooseDirectory" IsCancel="True" HorizontalAlignment="Right" Width="67" Height="20" VerticalAlignment="Top"/>
             <Button x:Name="menuButton_addedit" Content="Add" Margin="0,435,10,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Click="AddFolder" IsCancel="True" HorizontalAlignment="Right" Width="110" Height="20" VerticalAlignment="Top"/>
-            <Button x:Name="menuButton_Copy3" Content="Remove" Margin="0,435,125,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Click="RemoveFolder" IsCancel="True" HorizontalAlignment="Right" Width="110" Height="20" VerticalAlignment="Top"/>
-            <ListView x:Name="mainlb" ItemsSource="{Binding Path=listFolders}" Background="{x:Null}"  Margin="10,41,10,301" >
+            <Button x:Name="menuButton_remove" Content="Remove" Margin="0,435,125,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Click="RemoveFolder" IsCancel="True" HorizontalAlignment="Right" Width="110" Height="20" VerticalAlignment="Top"/>
+            <ListView x:Name="mainlb" ItemsSource="{Binding Path=listFolders}" Background="{x:Null}"  Margin="10,41,10,301" PreviewMouseDown="mainlb_PreviewMouseDown" >
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="1" ScrollViewer.CanContentScroll="False" />
+                        <UniformGrid Columns="1" ScrollViewer.CanContentScroll="False" VerticalAlignment="Top"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
                 <ListBox.ItemContainerStyle>

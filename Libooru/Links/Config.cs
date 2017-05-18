@@ -98,7 +98,7 @@ namespace Libooru.Links
             }
 
             GetConfig();
-            core.Update();
+            core.SoftUpdate();
         }
 
         public void SetLibooruEnv()
