@@ -30,14 +30,11 @@ namespace Libooru.Views
 
         private bool folderNameBarClearOnFocus = true;
 
-		private ListBoxItem prevItem = null;
-
         public MenuPage_Directories()
         {
             InitializeComponent();
             this.listFolders = new ObservableCollection<Folder>();
 			this.menuButton_addedit.IsEnabled = false;
-			this.menuButton_remove.IsEnabled = false;
             
         }
 
@@ -162,18 +159,12 @@ namespace Libooru.Views
 
 		}
 
-		private void mainlb_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+		private void remButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (prevItem != null)
-			{
-				var dt = prevItem.DataContext as Folder;
-			}
-
-			prevItem = ItemsControl.ContainerFromElement(this.mainlb, e.OriginalSource as DependencyObject) as ListBoxItem;
-			if (prevItem != null)
-			{
-				
-			}
+			var o = ((sender as Button).Tag as Folder);
+			core.foldersWorker.RemoveFolder(o.Id);
+			GetFolders();
 		}
+
 	}
 }

@@ -76,6 +76,8 @@ namespace Libooru.Links
 			var modifiedFolders = foldersWorker.DoFullScan();
 			if (modifiedFolders.Count > 0)
 				foldersWorker.Scan(modifiedFolders);
+
+			switcher.UpdateAllViews();
 		}
 
         public void SetStatus(string status)

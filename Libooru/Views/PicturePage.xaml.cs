@@ -57,10 +57,10 @@ namespace Libooru.Views
             await Task.Run(() =>
             {
                 core.taggerWorker.TagPicture(DisplayedId);
-				UpdateView();
-                core.SetStatus("Done.");
             });
             
+            core.SetStatus("Done.");
+			UpdateView();
         }
 
 

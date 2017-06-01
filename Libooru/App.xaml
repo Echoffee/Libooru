@@ -16,13 +16,6 @@
         <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFFFFFFF"/>
         <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FFFFFFFF"/>
 
-        <DataTemplate DataType="{x:Type models:Folder}">
-            <StackPanel Orientation="Vertical" >
-                <TextBlock Text="{Binding Name}" TextAlignment="Left" HorizontalAlignment="Left" FontWeight="DemiBold"/>
-                <TextBlock Text="{Binding Path}" TextAlignment="Right" HorizontalAlignment="Left" FontStyle="Italic"/>
-                <Button Name="remButton" Content="Remove" Background="#FF1B1B1C"  Height="20" Width="70" HorizontalAlignment="Left" Foreground="{DynamicResource Button.Static.Foreground}" Visibility="Hidden"/>
-            </StackPanel>
-        </DataTemplate>
 
         <DataTemplate DataType="{x:Type models:Picture}">
             <StackPanel Orientation="Vertical">

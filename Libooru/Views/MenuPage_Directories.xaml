@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Libooru.Views"
+      xmlns:models="clr-namespace:Libooru.Models"
 
       mc:Ignorable="d" 
       d:DesignHeight="730" d:DesignWidth="995"
@@ -59,7 +60,16 @@
             </Setter>
         </Style>
         
+        <DataTemplate DataType="{x:Type models:Folder}" >
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding Name}" TextAlignment="Left" HorizontalAlignment="Left" FontWeight="DemiBold"/>
+                <TextBlock Text="{Binding Path}" TextAlignment="Right" HorizontalAlignment="Left" FontStyle="Italic"/>
+                <Button x:Name="remButton" Click="remButton_Click" Tag="{Binding}" Content="Remove" Background="#FF1B1B1C"  Height="20" Width="70" HorizontalAlignment="Left" Foreground="{DynamicResource Button.Static.Foreground}" />
+            </StackPanel>
+        </DataTemplate>
     </Page.Resources>
+
+
     <Grid Background="#FF2D2D30">
         <Button x:Name="menuButton" Content="Back" Margin="5,0,0,30" Foreground="White" Background="#FF1B1B1C"  Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75" ForceCursor="True" Click="goToMain" IsCancel="True"/>
         <Grid Background="#FF007ACC" Height="25" VerticalAlignment="Bottom">
@@ -79,21 +89,20 @@
             <!-- <Button x:Name="menuButton_Copy" Content="Auto" Margin="0,369,10,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Click="goToMain" IsCancel="True" HorizontalAlignment="Right" Width="67" Height="20" VerticalAlignment="Top"/> -->
             <Button x:Name="menuButton_Copy1" Content="..." Margin="0,399,10,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Click="ChooseDirectory" IsCancel="True" HorizontalAlignment="Right" Width="67" Height="20" VerticalAlignment="Top"/>
             <Button x:Name="menuButton_addedit" Content="Add" Margin="0,435,10,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Click="AddFolder" IsCancel="True" HorizontalAlignment="Right" Width="110" Height="20" VerticalAlignment="Top"/>
-            <Button x:Name="menuButton_remove" Content="Remove" Margin="0,435,125,0" Foreground="White" Background="#FF1B1B1C" ForceCursor="True" Click="RemoveFolder" IsCancel="True" HorizontalAlignment="Right" Width="110" Height="20" VerticalAlignment="Top"/>
-            <ListView x:Name="mainlb" ItemsSource="{Binding Path=listFolders}" Background="{x:Null}"  Margin="10,41,10,301" PreviewMouseDown="mainlb_PreviewMouseDown" >
+            <ListView x:Name="mainlb" ItemsSource="{Binding Path=listFolders}" Background="{x:Null}"  Margin="10,41,10,301" >
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Columns="1" ScrollViewer.CanContentScroll="False" VerticalAlignment="Top"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
                         <Setter Property="Height" Value="60"/>
                         <Setter Property="Foreground" Value="White" />
                         <Setter Property="HorizontalAlignment" Value="Stretch" />
                         <Setter Property="VerticalAlignment" Value="Top"/>
                     </Style>
-                </ListBox.ItemContainerStyle>
+                </ListView.ItemContainerStyle>
             </ListView>
             <CheckBox x:Name="scanOnStartCheckBox" Content="Scan on start" HorizontalAlignment="Left" Margin="93,435,0,0" VerticalAlignment="Top" Checked="scanOnStartCheckBox_Checked" Background="#FF1B1B1C" Foreground="White" IsChecked="True"/>
         </Grid>

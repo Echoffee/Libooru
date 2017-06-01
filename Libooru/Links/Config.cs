@@ -75,7 +75,6 @@ namespace Libooru.Links
             var path = AppFolderPath;
             var filePath = path + @"/list.lb";
 
-            string s;
             using (var w = new StreamWriter(filePath, false))
             {
                 foreach (var item in list)
