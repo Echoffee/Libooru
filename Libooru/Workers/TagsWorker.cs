@@ -68,6 +68,7 @@ namespace Libooru.Workers
 				var r = core.taggerWorker.SearchForTag(item);
 				if (r != null)
 					t.Type = TagSearchResult.GetCategory(r.category);
+				//TODO: Update Unknow type tags
             }
             else
                 t = tagResults.First();

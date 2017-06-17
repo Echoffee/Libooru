@@ -58,10 +58,13 @@ namespace Libooru.Views
 
             await Task.Run(() =>
             {
-                core.taggerWorker.TagPicture(DisplayedId);
-            });
+				if (!core.taggerWorker.TagPicture(DisplayedId))
+					core.SetStatus("SEARCH FAILED! Please try again.");
+				else
+					core.SetStatus("Done.");
+			});
             
-            core.SetStatus("Done.");
+            
 			this.progressBar.Visibility = Visibility.Hidden;
 			UpdateView();
         }

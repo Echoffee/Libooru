@@ -19,16 +19,19 @@ namespace Libooru.Workers.Iqdb
             this.Content = result;
         }
 
-        public void Compute()
+        public bool Compute()
         {
             if (string.IsNullOrEmpty(Content))
-                return;
+                return false;
 
             var document = new HtmlDocument();
             document.LoadHtml(Content);
 
             BestMatch = new IqdbMatch();
             var urlNode = document.DocumentNode.SelectSingleNode("/html/body/div/div[@id='pages']/div[2]/table/tr[2]/td/a");
+			if (urlNode == null)
+				return false;
+
             var id = urlNode.Attributes.Single(x => x.Name == "href").Value.Split('/').Last();
             var sizeNode = document.DocumentNode.SelectSingleNode("/html/body/div/div[@id='pages']/div[2]/table/tr[3]/td");
             var size = sizeNode.InnerHtml.Split(' ')[0].Split('×');
@@ -39,6 +42,8 @@ namespace Libooru.Workers.Iqdb
             BestMatch.height = int.Parse(size[1]);
             BestMatch.accuracy = int.Parse(acc);
             BestMatch.id = id;
+
+			return true;
         }
     }
 }

@@ -14,12 +14,12 @@ namespace Libooru.Externals.Danbooru
 		public long? post_count { get; set; }
 		public string related_tags { get; set; }
 		public string related_tags_updated_at { get; set; }
-		public int category { get; set; }
-		public DateTime created_at { get; set; }
-		public DateTime updated_at { get; set; }
-		public bool is_locked { get; set; }
+		public int? category { get; set; }
+		public DateTime? created_at { get; set; }
+		public DateTime? updated_at { get; set; }
+		public bool? is_locked { get; set; }
 
-		public static TagType GetCategory(int c)
+		public static TagType GetCategory(int? c)
 		{
 			switch(c){
 				default:

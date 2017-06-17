@@ -19,14 +19,19 @@ namespace Libooru.Workers
 
         public Core core { get; set; }
 
+		private WebClient client;
+
+		private HttpClient httpClient;
+
         public TaggerWorker(Core core)
         {
             this.core = core;
+			client = new WebClient();
+			httpClient = new HttpClient();
         }
 
         public PostSearchResult SearchForMd5(string path)
         {
-            var client = new WebClient();
             var r = client.DownloadData(CreateMD5Request(path));
             var content = Encoding.UTF8.GetString(r);
             var l = JsonConvert.DeserializeObject<PostSearchResult[]>(content);
@@ -35,7 +40,6 @@ namespace Libooru.Workers
 
         public PostSearchResult Search(string id)
         {
-            var client = new WebClient();
             //var r = client.DownloadString(t + "?login=" + core.config.Data.Externals.Danbooru.Login + "&api_key=" + core.config.Data.Externals.Danbooru.ApiKey);
             var r = client.DownloadString(CreatePostIdRequest(id));
             //var content = Encoding.UTF8.GetString(r);
@@ -45,7 +49,6 @@ namespace Libooru.Workers
 
 		public TagSearchResult SearchForTag(string tag)
 		{
-			var client = new WebClient();
 			//var r = client.DownloadString(t + "?login=" + core.config.Data.Externals.Danbooru.Login + "&api_key=" + core.config.Data.Externals.Danbooru.ApiKey);
 			var r = client.DownloadString(CreateTagSearchNameRequest(tag));
 			//var content = Encoding.UTF8.GetString(r);
@@ -88,12 +91,14 @@ namespace Libooru.Workers
             return result;
         }
 
-        public void TagPicture(int id)
+        public bool TagPicture(int id)
         {
 			core.SetProgress(0);
             var r = QueryDanbooruIQDB(id);
 			core.SetProgress(10);
-            r.Compute();
+            if (!r.Compute())
+				return false;
+
 			core.SetProgress(20);
 			var pr = Search(r.BestMatch.id);
 			core.SetProgress(30);
@@ -106,17 +111,18 @@ namespace Libooru.Workers
 				p += tick;
 				core.SetProgress((int)p);
 			}
+
+			return true;
         }
 
         public IqdbQueryResult QueryDanbooruIQDB(int id)
         {
             var p = core.picturesWroker.GetPicture(id);
             var f = new ByteArrayContent(p.Thumbnail);
-            using (var client = new HttpClient())
             using (var formData = new MultipartFormDataContent())
             {
                 formData.Add(f, "file", "picture");
-                var response = client.PostAsync("http://danbooru.iqdb.org/", formData).Result;
+                var response = httpClient.PostAsync("http://danbooru.iqdb.org/", formData).Result;
                 if (!response.IsSuccessStatusCode)
                     return null;
 
