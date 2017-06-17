@@ -11,6 +11,7 @@ using Libooru.Links.ConfigData;
 using LiteDB;
 using Libooru.Models;
 using System.Linq.Expressions;
+using Libooru.Externals.Danbooru;
 
 namespace Libooru.Workers
 {
@@ -64,6 +65,9 @@ namespace Libooru.Workers
                 t.Name = item;
                 t.PictureIDs = new List<int>();
                 tagCollection.Insert(t);
+				var r = core.taggerWorker.SearchForTag(item);
+				if (r != null)
+					t.Type = TagSearchResult.GetCategory(r.category);
             }
             else
                 t = tagResults.First();

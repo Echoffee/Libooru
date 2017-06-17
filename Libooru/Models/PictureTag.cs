@@ -23,8 +23,9 @@ namespace Libooru.Models
 
     public enum TagType
     {
+		Unknown,
         Meta,
-        Common,
+        General,
         Character,
         Artist,
         Copyright

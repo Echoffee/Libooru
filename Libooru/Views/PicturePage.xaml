@@ -75,10 +75,11 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         <Grid Background="#FF007ACC" Height="25" VerticalAlignment="Bottom">
             <TextBlock x:Name="textStatus" HorizontalAlignment="Left" Margin="5,5,0,5" TextWrapping="Wrap" Text="Status..." FontSize="11" Foreground="White" Width="155"/>
             <TextBlock x:Name="textInfos" Margin="0,5,5,5" TextWrapping="Wrap" Text="Infos..." FontSize="11" Foreground="White" TextAlignment="Right" HorizontalAlignment="Right" Width="155"/>
+            <ProgressBar x:Name="progressBar" HorizontalAlignment="Left" Margin="165,5,0,5" Width="100" Visibility="Hidden"/>
         </Grid>
         <Grid x:Name="picGrid" Margin="5,5,5,30">
             <Grid Margin="0,0,0,175">
-                <Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Center" Width="575"/>
+                <Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
             <Grid Height="165" VerticalAlignment="Bottom">
                 <ListView x:Name="mainlb" ItemsSource="{Binding Path=TagList}" Background="{x:Null}"  Margin="0,10,10,10" HorizontalAlignment="Right" Width="190" >

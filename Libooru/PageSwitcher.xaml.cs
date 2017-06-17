@@ -99,7 +99,12 @@ namespace Libooru
             menuPage.UpdateView();
         }
 
-        public void GoToMenu_Directories()
+		public void SetProgress(int value)
+		{
+			picturePage.SetProgress(value);
+		}
+
+		public void GoToMenu_Directories()
         {
             Switcher.Switch(menuPage_Directories);
             menuPage_Directories.UpdateView();

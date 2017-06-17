@@ -54,15 +54,25 @@ namespace Libooru.Views
         private async void checkTags(object sender, RoutedEventArgs e)
         {
             core.SetStatus("Tag in progress...");
+			this.progressBar.Visibility = Visibility.Visible;
+
             await Task.Run(() =>
             {
                 core.taggerWorker.TagPicture(DisplayedId);
             });
             
             core.SetStatus("Done.");
+			this.progressBar.Visibility = Visibility.Hidden;
 			UpdateView();
         }
 
+		public void SetProgress(int value)
+		{
+			this.Dispatcher.Invoke(() =>
+		   {
+			   this.progressBar.Value = value;
+		   });
+		}
 
         public void LoadPicture(int id)
         {
@@ -78,11 +88,16 @@ namespace Libooru.Views
             TagList.Clear();
             var t = core.tagsWorker.GetTagsForPicture(id);
             foreach (var item in t)
-            {
                 TagList.Add(item);
-            }
+
 
             this.mainlb.DataContext = this;
+			var n = TagList.Where(x => x.Type == TagType.Artist).FirstOrDefault();
+			if (n != null)
+				this.label_artist.Content = n.Name;
+			else
+				this.label_artist.Content = "<Unknown>";
+
             mainlb.Items.Refresh();
         }
 

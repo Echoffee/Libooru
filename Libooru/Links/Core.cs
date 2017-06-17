@@ -85,7 +85,12 @@ namespace Libooru.Links
             switcher.SetAllViewsStatus(status);
         }
 
-        public void SetPicture(int id)
+		public void SetProgress(int value)
+		{
+			switcher.SetProgress(value);
+		}
+
+		public void SetPicture(int id)
         {
             switcher.SetPicture(id);
         }
