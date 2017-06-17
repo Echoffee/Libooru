@@ -38,26 +38,50 @@ namespace Libooru.Views
             
         }
 
+		/// <summary>
+		/// Link the view to the Core.
+		/// </summary>
+		/// <param name="core">Core object to link to.</param>
         public void UtilizeState(Core core)
         {
             this.core = core;
         }
 
+		/// <summary>
+		/// Called when the General button is clicked.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         private void goToMenu(object sender, RoutedEventArgs e)
         {
             core.switcher.GoToMenu();
         }
 
+		/// <summary>
+		/// Called when the Back button is clicked.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         private void goToMain(object sender, RoutedEventArgs e)
         {
             core.switcher.GoToMain();
         }
 
+		/// <summary>
+		/// Called when the Externals button is clicked.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         private void goToExternals(object sender, RoutedEventArgs e)
         {
             core.switcher.GoToMenu_Externals();
         }
 
+		/// <summary>
+		/// Called when the Apply button is clicked. Edit the config file according to new settings and update the view.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         public void ApplyChanges(object sender, RoutedEventArgs e)
         {
             core.SetStatus("Applying changes...");
@@ -70,6 +94,9 @@ namespace Libooru.Views
             core.SetStatus("");
         }
 
+		/// <summary>
+		/// Retrieve Folder objects from the database and display them.
+		/// </summary>
         private void GetFolders()
         {
             listFolders.Clear();
@@ -83,12 +110,23 @@ namespace Libooru.Views
             mainlb.Items.Refresh();
         }
 
+		/// <summary>
+		/// Called when the Add button is clicked.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         public void AddFolder(object sender, RoutedEventArgs e)
         {
             core.foldersWorker.AddNewFolder(textboxFolderName.Text, textboxFolderPath.Text);
             GetFolders();
         }
 
+		/// <summary>
+		/// Called when the Remove button is clicked.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		[System.Obsolete]
         private void RemoveFolder(object sender, RoutedEventArgs e)
         {
             var item = (Folder) mainlb.SelectedItem;
@@ -96,6 +134,11 @@ namespace Libooru.Views
             GetFolders();
         }
 
+		/// <summary>
+		/// Called when the "..." button is clicked. Display a pop-up to select a folder.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         public void ChooseDirectory(object sender, RoutedEventArgs e)
         { 
             var dialog = new CommonOpenFileDialog();
@@ -112,6 +155,11 @@ namespace Libooru.Views
 
 		}
 
+		/// <summary>
+		/// Called when the folder name textbar is focused.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         private void Bar_GotFocus(object sender, RoutedEventArgs e)
         {
             if (folderNameBarClearOnFocus)
@@ -121,6 +169,11 @@ namespace Libooru.Views
             }
         }
 
+		/// <summary>
+		/// Called when the folder name textbar lost its focus.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         private void Bar_LostFocus(object sender, RoutedEventArgs e)
         {
             if (this.textboxFolderName.Text.Equals(""))
@@ -132,12 +185,18 @@ namespace Libooru.Views
 				this.menuButton_addedit.IsEnabled = true;
         }
 
+		/// <summary>
+		/// Update view.
+		/// </summary>
         public void UpdateView()
         {
             //CountFiles();
             SetPaths();
         }
 
+		/// <summary>
+		/// Set folder paths on the list.
+		/// </summary>
         public void SetPaths()
         {
             GetFolders();
@@ -145,6 +204,9 @@ namespace Libooru.Views
             //textboxNewPictureFolder.Text = core.config.Data.Folders.NewPictureFolderPath;
         }
 
+		/// <summary>
+		/// Count and display the number of Picture objects in the database.
+		/// </summary>
         public void CountFiles()
         {
             this.textInfos.Text = core.foldersWorker.pictureNumber + " picture"
@@ -159,6 +221,11 @@ namespace Libooru.Views
 
 		}
 
+		/// <summary>
+		/// Called when a Remove button is clicked in the list view.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void remButton_Click(object sender, RoutedEventArgs e)
 		{
 			var o = ((sender as Button).Tag as Folder);

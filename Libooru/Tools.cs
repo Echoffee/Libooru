@@ -10,6 +10,11 @@ namespace Libooru
 {
 	public static class Tools
 	{
+		/// <summary>
+		/// Compute MD5 hash from a given file.
+		/// </summary>
+		/// <param name="path">Path of the file to compute.</param>
+		/// <returns>Hash in hexadecimal form.</returns>
 		public static string GetMd5FromFile(string path)
 		{
 			using (var md5 = MD5.Create())

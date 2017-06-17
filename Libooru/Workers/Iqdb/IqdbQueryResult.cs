@@ -19,6 +19,10 @@ namespace Libooru.Workers.Iqdb
             this.Content = result;
         }
 
+		/// <summary>
+		/// Scrap HTML document into an IqdbMatch object.
+		/// </summary>
+		/// <returns>True if scraping was successful, false otherwise.</returns>
         public bool Compute()
         {
             if (string.IsNullOrEmpty(Content))

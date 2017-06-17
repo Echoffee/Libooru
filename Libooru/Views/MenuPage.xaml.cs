@@ -28,32 +28,57 @@ namespace Libooru.Views
 
         public Core core { get; set; }
 
+		/// <summary>
+		/// Link the view to the Core.
+		/// </summary>
+		/// <param name="core">Core object to link to.</param>
         public void UtilizeState(Core core)
         {
             this.core = core;
         }
 
+		/// <summary>
+		/// Called when the Back button is clicked.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         private void menuButton_Click(object sender, RoutedEventArgs e)
         {
             core.switcher.GoToMain();
         }
 
+		/// <summary>
+		/// Called when the Directories button is clicked.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         private void goToDirectories(object sender, RoutedEventArgs e)
         {
             core.switcher.GoToMenu_Directories();
         }
 
+		/// <summary>
+		/// Called when the Externals button is clicked.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         private void goToExternals(object sender, RoutedEventArgs e)
         {
             core.switcher.GoToMenu_Externals();
         }
 
+		/// <summary>
+		/// Update view.
+		/// </summary>
         public void UpdateView()
         {
             CountFiles();
             CountTags();
         }
 
+		/// <summary>
+		/// Count and display the number of Picture objects saved in the database.
+		/// </summary>
         public void CountFiles()
         {
             this.textInfos.Text = core.foldersWorker.pictureNumber + " picture"
@@ -66,6 +91,9 @@ namespace Libooru.Views
 
         }
 
+		/// <summary>
+		/// Count and display the number of PictureTag objects saved in the database.
+		/// </summary>
         public void CountTags()
         {
             this.textTags.Text = core.tagsWorker.tagNumber + " tag"

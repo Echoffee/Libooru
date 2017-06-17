@@ -28,27 +28,51 @@ namespace Libooru.Views
             InitializeComponent();
         }
 
+		/// <summary>
+		/// Link the view to the Core.
+		/// </summary>
+		/// <param name="core">Core object to link to.</param>
         public void UtilizeState(Core core)
         {
             this.core = core;
         }
 
+		/// <summary>
+		/// Called when the General button is clicked.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         private void goToMenu(object sender, RoutedEventArgs e)
         {
             core.switcher.GoToMenu();
         }
 
+		/// <summary>
+		/// Called when the Back button is clicked.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         private void goToMain(object sender, RoutedEventArgs e)
         {
             core.switcher.GoToMain();
         }
 
+		/// <summary>
+		/// Called when the Directories button is clicked.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         private void goToFolders(object sender, RoutedEventArgs e)
         {
             core.switcher.GoToMenu_Directories();
         }
 
-        public void ApplyChanges(object sender, RoutedEventArgs e)
+		/// <summary>
+		/// Called when the Apply button is clicked. Edit the config file according to new settings and update the view.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		public void ApplyChanges(object sender, RoutedEventArgs e)
         {
             core.SetStatus("Applying changes...");
             core.config.Data.Externals.Danbooru.Login = textBoxLogin.Text;
@@ -59,12 +83,18 @@ namespace Libooru.Views
             core.SetStatus("");
         }
 
+		/// <summary>
+		/// update view.
+		/// </summary>
         public void UpdateView()
         {
             CountFiles();
             SetFields();
         }
 
+		/// <summary>
+		/// Apply text fields according to the config file.
+		/// </summary>
         public void SetFields()
         {
             //TODO: Fix for more tools
@@ -72,6 +102,9 @@ namespace Libooru.Views
             textBoxApiKey.Text = core.config.Data.Externals.Danbooru.ApiKey;
         }
 
+		/// <summary>
+		/// Count and display the number of Picture objects in the database.
+		/// </summary>
         public void CountFiles()
         {
             this.textInfos.Text = core.foldersWorker.pictureNumber + " picture"

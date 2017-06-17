@@ -32,6 +32,10 @@ namespace Libooru.Workers
             this.core = core;
         }
 
+		/// <summary>
+		/// Count number of tags.
+		/// </summary>
+		[System.Obsolete]
         public void ScanForTags()
         {
             core.SetStatus("Retrieving tags...");
@@ -39,6 +43,12 @@ namespace Libooru.Workers
             core.SetStatus("");
         }
 
+		/// <summary>
+		/// Get number of tag files in a given folder.
+		/// </summary>
+		/// <param name="path">Path of the folder.</param>
+		/// <returns>Number of tag files.</returns>
+		[System.Obsolete]
         public long GetTagFilesNum(string path)
         {
             var result = 0L;
@@ -55,6 +65,11 @@ namespace Libooru.Workers
             return result;
         }
 
+		/// <summary>
+		/// Add a tag relation into the database.
+		/// </summary>
+		/// <param name="item">Name of the tag.</param>
+		/// <param name="id_pic">Id of the Picture object to link the tag to.</param>
         internal void AddTag(string item, int id_pic)
         {
             var tagResults = tagCollection.Find(x => x.Name.Equals(item)).ToList();
@@ -79,6 +94,11 @@ namespace Libooru.Workers
             tagCollection.Update(t);
         }
 
+		/// <summary>
+		/// Retrieve a collection of tag objects from a given picture.
+		/// </summary>
+		/// <param name="id">id of the Picture object in the database.</param>
+		/// <returns>The collection of PictureTag objects.</returns>
         public IList<PictureTag> GetTagsForPicture(int id)
         {
             var result = tagCollection.FindAll();

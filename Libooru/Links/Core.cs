@@ -50,6 +50,9 @@ namespace Libooru.Links
             config.GetConfig();
         }
 
+		/// <summary>
+		/// Initialize Libooru environment by creating config files, etc...
+		/// </summary>
         public void FirstLaunch()
         {
             var f = new Folder();
@@ -59,6 +62,9 @@ namespace Libooru.Links
             foldersWorker.FolderCollection.Insert(f);
         }
 
+		/// <summary>
+		/// Do a scan for new detected pictures.
+		/// </summary>
         public void SoftUpdate()
         {
 			/*if (foldersWorker.ScanForNewPictures())
@@ -71,6 +77,9 @@ namespace Libooru.Links
             switcher.UpdateAllViews();
         }
 
+		/// <summary>
+		/// Do a full scan on all pictures.
+		/// </summary>
 		public void HardUpdate()
 		{
 			var modifiedFolders = foldersWorker.DoFullScan();
@@ -80,21 +89,36 @@ namespace Libooru.Links
 			switcher.UpdateAllViews();
 		}
 
+		/// <summary>
+		/// Set status bar message on all views.
+		/// </summary>
+		/// <param name="status">Message to display.</param>
         public void SetStatus(string status)
         {
             switcher.SetAllViewsStatus(status);
         }
 
+		/// <summary>
+		/// Set progress bar progression on all compatible views.
+		/// </summary>
+		/// <param name="value">The new value of the progress bar (0-100).</param>
 		public void SetProgress(int value)
 		{
 			switcher.SetProgress(value);
 		}
 
+		/// <summary>
+		/// Set the current picture to display on all compatible views.
+		/// </summary>
+		/// <param name="id">Id of the Picture object in the database to display.</param>
 		public void SetPicture(int id)
         {
             switcher.SetPicture(id);
         }
 
+		/// <summary>
+		/// Initialize app (startup).
+		/// </summary>
         internal void Initialize()
         {
             config.SetLibooruEnv();

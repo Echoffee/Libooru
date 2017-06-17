@@ -142,6 +142,11 @@ namespace Libooru.Workers
 			}
 		}
 
+		/// <summary>
+		/// Add new folder to scan in the database.
+		/// </summary>
+		/// <param name="name">Name of the folder as it appears on the list.</param>
+		/// <param name="path">Path of the folder.</param>
         public void AddNewFolder(string name, string path)
         {
             var o = new Folder();
@@ -151,6 +156,11 @@ namespace Libooru.Workers
             FolderCollection.Insert(o);
         }
 
+		/// <summary>
+		/// Remove a folder from the database.
+		/// </summary>
+		/// <param name="Id">Id of the folder in the database.</param>
+		/// <returns></returns>
         public bool RemoveFolder(int Id)
         {
             var result = false;
@@ -165,6 +175,10 @@ namespace Libooru.Workers
             return result;
         }
 
+		/// <summary>
+		/// Callback I don't know what for.
+		/// </summary>
+		/// <returns>Boolean value</returns>
         public bool ThumbnailCallback()
         {
             return false;

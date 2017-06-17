@@ -30,6 +30,12 @@ namespace Libooru.Workers
 			httpClient = new HttpClient();
         }
 
+		/// <summary>
+		/// DANBOORU ONLY - Get Danbooru data from a given picture by MD5.
+		/// </summary>
+		/// <param name="path">Path of the picture</param>
+		/// <returns></returns>
+		[System.Obsolete]
         public PostSearchResult SearchForMd5(string path)
         {
             var r = client.DownloadData(CreateMD5Request(path));
@@ -38,6 +44,11 @@ namespace Libooru.Workers
             return l.First();
         }
 
+		/// <summary>
+		/// DANBOORU ONLY - Get Danbooru data from a given id post.
+		/// </summary>
+		/// <param name="id">Danbooru post Id.</param>
+		/// <returns></returns>
         public PostSearchResult Search(string id)
         {
             //var r = client.DownloadString(t + "?login=" + core.config.Data.Externals.Danbooru.Login + "&api_key=" + core.config.Data.Externals.Danbooru.ApiKey);
@@ -47,6 +58,11 @@ namespace Libooru.Workers
             return l;
         }
 
+		/// <summary>
+		/// DANBOORU ONLY - Get Danbooru data from a given tag name.
+		/// </summary>
+		/// <param name="tag">Tag name to look for.</param>
+		/// <returns></returns>
 		public TagSearchResult SearchForTag(string tag)
 		{
 			//var r = client.DownloadString(t + "?login=" + core.config.Data.Externals.Danbooru.Login + "&api_key=" + core.config.Data.Externals.Danbooru.ApiKey);
@@ -59,10 +75,16 @@ namespace Libooru.Workers
 			return l[0];
 		}
 
-		public string CreateMD5Request(string path)
+		/// <summary>
+		/// DANBOORU ONLY - Get Danbooru data from a given MD5 hash.
+		/// </summary>
+		/// <param name="md5">MD5</param>
+		/// <returns></returns>
+		[System.Obsolete]
+		public string CreateMD5Request(string md5)
 		{
 			//var result = "https://danbooru.donmai.us/posts.json?tags=md5:" + GetMd5FromFile(path);
-			var result = "https://danbooru.donmai.us/posts/" + path.Replace("https://danbooru.donmai.us/posts/", "");
+			var result = "https://danbooru.donmai.us/posts/" + md5.Replace("https://danbooru.donmai.us/posts/", "");
 			if (!string.IsNullOrEmpty(core.config.Data.Externals.Danbooru.ApiKey) && !string.IsNullOrEmpty(core.config.Data.Externals.Danbooru.Login))
 			{
 				result += "&login=" + core.config.Data.Externals.Danbooru.Login + "&api_key=" + core.config.Data.Externals.Danbooru.ApiKey;
@@ -71,6 +93,11 @@ namespace Libooru.Workers
 			return result;
 		}
 
+		/// <summary>
+		/// DANBOORU ONLY - Create a GET request for tag informations from tag names.
+		/// </summary>
+		/// <param name="tag">Tags to look for.</param>
+		/// <returns></returns>
 		public string CreateTagSearchNameRequest(string tag)
 		{
 			var result = "https://danbooru.donmai.us/tags.json?search[name]=" + tag;
@@ -80,6 +107,11 @@ namespace Libooru.Workers
 			return result;
 		}
 
+		/// <summary>
+		/// DANBOORU ONLY - Create a GET request for post informations from post id.
+		/// </summary>
+		/// <param name="id">Id of the post to look for.</param>
+		/// <returns></returns>
 		public string CreatePostIdRequest(string id)
         {
             var result = "https://danbooru.donmai.us/posts/" + id + ".json";
@@ -91,6 +123,11 @@ namespace Libooru.Workers
             return result;
         }
 
+		/// <summary>
+		/// DANBOORU ONLY - (All-in-one) Tag a picture using IQDB's reverse search and Danbooru's post id.
+		/// </summary>
+		/// <param name="id">Id of the Picture object to tag.</param>
+		/// <returns>True if tagging was successful, False otherwise.</returns>
         public bool TagPicture(int id)
         {
 			core.SetProgress(0);
@@ -115,6 +152,11 @@ namespace Libooru.Workers
 			return true;
         }
 
+		/// <summary>
+		/// DANBOORU ONLY - Get Danbooru posts from a given picture using IQDB's reverse search. 
+		/// </summary>
+		/// <param name="id">Id of the Picture object to look for.</param>
+		/// <returns>IqdbQueryResult object.</returns>
         public IqdbQueryResult QueryDanbooruIQDB(int id)
         {
             var p = core.picturesWroker.GetPicture(id);
@@ -132,6 +174,11 @@ namespace Libooru.Workers
             }
         }
 
+		/// <summary>
+		/// Compute MD5 hash from a given file.
+		/// </summary>
+		/// <param name="path">Path of the file to compute.</param>
+		/// <returns>Hash in hexadecimal form.</returns>
         public string GetMd5FromFile(string path)
         {
             using (var md5 = MD5.Create())

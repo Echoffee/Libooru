@@ -36,21 +36,38 @@ namespace Libooru.Views
             this.TagList = new ObservableCollection<PictureTag>();
         }
 
+		/// <summary>
+		/// Link the view to the Core.
+		/// </summary>
+		/// <param name="core">Core object to link to.</param>
         public void UtilizeState(Core core)
         {
             this.core = core;
         }
 
+		/// <summary>
+		/// Update view.
+		/// </summary>
         public void UpdateView()
         {
             LoadPicture(DisplayedId);
         }
 
+		/// <summary>
+		/// Called when the Back button is clicked.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         private void goToMain(object sender, RoutedEventArgs e)
         {
             core.switcher.GoToMain();
         }
 
+		/// <summary>
+		/// Called when Check tags is clicked. Starts tagging process.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         private async void checkTags(object sender, RoutedEventArgs e)
         {
             core.SetStatus("Tag in progress...");
@@ -69,6 +86,10 @@ namespace Libooru.Views
 			UpdateView();
         }
 
+		/// <summary>
+		/// Change progress bar value.
+		/// </summary>
+		/// <param name="value">New value of the progress bar (0-100).</param>
 		public void SetProgress(int value)
 		{
 			this.Dispatcher.Invoke(() =>
@@ -77,6 +98,10 @@ namespace Libooru.Views
 		   });
 		}
 
+		/// <summary>
+		/// Load and display a picture from its Id.
+		/// </summary>
+		/// <param name="id">Id of the Picture object in the database to display.</param>
         public void LoadPicture(int id)
         {
             this.DisplayedId = id;

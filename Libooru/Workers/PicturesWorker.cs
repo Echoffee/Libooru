@@ -25,6 +25,13 @@ namespace Libooru.Workers
             this.core = core;
         }
 
+		/// <summary>
+		/// Retrieve a collection of pictures from the database.
+		/// </summary>
+		/// <param name="offset">From which index to retrieve pictures. Default is 0.</param>
+		/// <param name="count">Number of pictures to retrieve. Default is 5.</param>
+		/// <param name="tags">Tags to search for. Currently not implemented.</param>
+		/// <returns>PictureQueryResult with search results.</returns>
         public PictureQueryResult RetrievePictures(int offset = 0, int count = 5, IList<PictureTag> tags = null)
         {
             var result = new PictureQueryResult();
@@ -37,6 +44,12 @@ namespace Libooru.Workers
             return result;
         }
 
+		/// <summary>
+		/// Generate a thumbnail for a given picture.
+		/// </summary>
+		/// <param name="path">Path of the picture.</param>
+		/// <param name="resolution">Resolution of the thumbnail (width/height max).</param>
+		/// <returns>The thumbnail as a byte array.</returns>
         public byte[] GenerateThumbnail(string path, int resolution = 150)
         {
             d.Bitmap img = new d.Bitmap(path);
@@ -55,6 +68,11 @@ namespace Libooru.Workers
             }
         }
 
+		/// <summary>
+		/// Get all pictures from the database in a given folder.
+		/// </summary>
+		/// <param name="id">Id of the folder in the database.</param>
+		/// <returns>PictureQueryResult with the pictures.</returns>
         public PictureQueryResult GetPicturesInFolder(int id)
         {
             var result = new PictureQueryResult();
@@ -64,6 +82,11 @@ namespace Libooru.Workers
             return result;
         }
 
+		/// <summary>
+		/// Get a picture from the database.
+		/// </summary>
+		/// <param name="id">Id of the picture requested.</param>
+		/// <returns>Picture object</returns>
         public Picture GetPicture(int id)
         {
             pictureCollection.EnsureIndex(x => x.Path);
@@ -71,6 +94,9 @@ namespace Libooru.Workers
             return r.ToList().First();
         }
 
+		/// <summary>
+		/// UNSTABLE - Generate Pictures objects for discovered pictures since previous scan.
+		/// </summary>
         public void HandleNewPictures()
         {
             pictureCollection.EnsureIndex("IsNew");
@@ -89,7 +115,12 @@ namespace Libooru.Workers
             }
         }
 
-        public byte[] GetThumbnail(int fileId, string path = "")
+		/// <summary>
+		/// Get the thumbnail from a given picture id.
+		/// </summary>
+		/// <param name="fileId">Id of the picture in the database.</param>
+		/// <returns>The thumbnail as a byte array.</returns>
+        public byte[] GetThumbnail(int fileId)
         {
             var c = pictureCollection.Find(x => x.Id.Equals(fileId));
             var result = c.First().Thumbnail;
@@ -110,31 +141,55 @@ namespace Libooru.Workers
             }
         }*/
 
+		/// <summary>
+		/// Insert a new Picture object in the database.
+		/// </summary>
+		/// <param name="p">Picture object to add.</param>
         public void InsertNewPicture(Picture p)
         {
             pictureCollection.Insert(p);
         }
 
+		/// <summary>
+		/// Update an existing Picture object in the database.
+		/// </summary>
+		/// <param name="picture">Picture object to update.</param>
 		internal void UpdatePicture(Picture picture)
 		{
 			pictureCollection.Update(picture);
 		}
 
-		internal void DeletePicture(Picture oldPictureName)
+		/// <summary>
+		/// Delete an existing Picture object from the database.
+		/// </summary>
+		/// <param name="oldPicture">Picture object to remove.</param>
+		internal void DeletePicture(Picture oldPicture)
 		{
-			pictureCollection.Delete(x => x.Id == oldPictureName.Id);
+			pictureCollection.Delete(x => x.Id == oldPicture.Id);
 		}
 
+		/// <summary>
+		/// Insert a new collection of Picture objects in the database.
+		/// </summary>
+		/// <param name="p">Collection of Picture objects to add.</param>
 		public void InsertNewPictures(IList<Picture> p)
         {
             pictureCollection.Insert(p);
         }
 
+		/// <summary>
+		/// No idea what is this for.
+		/// </summary>
+		/// <returns>Boolean value.</returns>
         public bool ThumbnailCallback()
         {
             return false;
         }
 
+		/// <summary>
+		/// Remove all Picture objects on the database from a given folder.
+		/// </summary>
+		/// <param name="id">Id of the folder in the database.</param>
         internal void RemovePicturesFromFolder(int id)
         {
             pictureCollection.Delete(x => x.FolderId == id);
